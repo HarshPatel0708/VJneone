@@ -1,0 +1,34 @@
+[
+  {
+    "id": "t-1",
+    "name": "David Miller",
+    "role": "Founder, Brew & Co.",
+    "rating": 5,
+    "text": "The custom neon sign for our cafe exceeded all expectations! The pink glow is vibrant but perfectly clean in photos, which has boosted our Instagram check-ins. Excellent customer support.",
+    "avatar": "DM"
+  },
+  {
+    "id": "t-2",
+    "name": "Sophia Martinez",
+    "role": "Bride",
+    "rating": 5,
+    "text": "Bought the 'Happily Ever After' sign for our wedding. It was the absolute highlight of the photo booth! Now it hangs beautifully in our bedroom. The dimming controller is perfect.",
+    "avatar": "SM"
+  },
+  {
+    "id": "t-3",
+    "name": "Marcus Vance",
+    "role": "VP Design, Linear Dynamics",
+    "rating": 5,
+    "text": "Superb engineering. The laser-cut acrylic backboard is absolutely flawless, and the LEDs have no hotspots. It feels like an Apple product for signage. Will buy again for our other offices.",
+    "avatar": "MV"
+  },
+  {
+    "id": "t-4",
+    "name": "Laura Thorne",
+    "role": "Homeowner",
+    "rating": 4,
+    "text": "The builder UI made designing my sign so fun and accurate. It looks exactly like it did on screen. Delivery was fast and mounting was simple.",
+    "avatar": "LT"
+  }
+]

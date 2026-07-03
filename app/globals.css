@@ -1,0 +1,146 @@
+@import "tailwindcss";
+
+@theme {
+  --color-neon-pink: #ff0066;
+  --color-neon-blue: #0080ff;
+  --color-deep-black: #030303;
+  --color-charcoal: #0a0a0c;
+  --color-glass-card: rgba(10, 10, 12, 0.7);
+  --color-glass-border: rgba(255, 255, 255, 0.08);
+
+  --font-sans: var(--font-outfit), sans-serif;
+  --font-outfit: var(--font-outfit), sans-serif;
+  --font-pacifico: var(--font-pacifico), cursive;
+  --font-caveat: var(--font-caveat), cursive;
+  --font-sacramento: var(--font-sacramento), cursive;
+  --font-yellowtail: var(--font-yellowtail), cursive;
+  --font-tilt-neon: var(--font-tilt-neon), sans-serif;
+  --font-dosis: var(--font-dosis), sans-serif;
+}
+
+:root {
+  --background: #030303;
+  --foreground: #f5f5f7;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-outfit), sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom Premium Utilities */
+
+/* Glassmorphism */
+.glass-effect {
+  background: rgba(10, 10, 12, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-nav {
+  background: rgba(3, 3, 3, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Custom Neon Glow Text */
+.neon-text-pink {
+  color: #ff0066;
+  text-shadow: 
+    0 0 4px rgba(255, 0, 102, 0.6), 
+    0 0 12px rgba(255, 0, 102, 0.4), 
+    0 0 25px rgba(255, 0, 102, 0.2);
+}
+
+.neon-text-blue {
+  color: #0080ff;
+  text-shadow: 
+    0 0 4px rgba(0, 128, 255, 0.6), 
+    0 0 12px rgba(0, 128, 255, 0.4), 
+    0 0 25px rgba(0, 128, 255, 0.2);
+}
+
+.neon-text-white {
+  color: #ffffff;
+  text-shadow: 
+    0 0 4px rgba(255, 255, 255, 0.8), 
+    0 0 12px rgba(255, 255, 255, 0.5), 
+    0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+/* Neon Glow Shadows (Box Glows) */
+.neon-shadow-pink {
+  box-shadow: 0 0 20px rgba(255, 0, 102, 0.25), inset 0 0 10px rgba(255, 0, 102, 0.15);
+  border-color: rgba(255, 0, 102, 0.35);
+}
+
+.neon-shadow-blue {
+  box-shadow: 0 0 20px rgba(0, 128, 255, 0.25), inset 0 0 10px rgba(0, 128, 255, 0.15);
+  border-color: rgba(0, 128, 255, 0.35);
+}
+
+/* Keyframe Animations */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes rotate-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes particle-drift {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -40px) scale(1.1); }
+  100% { transform: translate(-10px, 10px) scale(1); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
+}
+
+.animate-rotate-slow {
+  animation: rotate-slow 20s linear infinite;
+}
+
+/* Premium Linear background lines */
+.bg-grid-lines {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+}
+
+/* Hide scrollbar default styles but keep behavior */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #030303;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}

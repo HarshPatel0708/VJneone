@@ -1,0 +1,227 @@
+[
+  {
+    "id": "prod-1",
+    "name": "Happily Ever After Sign",
+    "slug": "happily-ever-after-sign",
+    "category": "Wedding Collection",
+    "price": 249,
+    "rating": 4.9,
+    "reviewCount": 124,
+    "image": "wedding-neon-1",
+    "images": [
+      "/images/products/wedding-1.jpg",
+      "/images/products/wedding-1-detail.jpg"
+    ],
+    "description": "Add the perfect romantic glow to your special day. Our 'Happily Ever After' neon sign is a wedding bestseller, designed to create a breathtaking backdrop for photos and memories that last a lifetime.",
+    "features": [
+      "Low voltage 12V LED neon (safer than traditional glass)",
+      "High-grade transparent acrylic backing, cut to shape",
+      "50,000 hours lifetime warranty",
+      "Free mounting hardware and power adapter included"
+    ],
+    "specifications": {
+      "Material": "Flexible LED Neon Tubing + Premium Acrylic",
+      "Backboard Shape": "Cut-to-shape Outline",
+      "Voltage": "12V DC (Includes 110-240V Adapter)",
+      "Usage": "Indoor (Outdoor option available)",
+      "Lifespan": "Over 50,000 Hours"
+    },
+    "sizes": [
+      { "name": "Small (30\" / 75cm)", "priceModifier": 0 },
+      { "name": "Medium (40\" / 100cm)", "priceModifier": 90 },
+      { "name": "Large (50\" / 125cm)", "priceModifier": 180 },
+      { "name": "Grand (60\" / 150cm)", "priceModifier": 290 }
+    ],
+    "colors": [
+      { "name": "Warm White", "hex": "#FFDFB0" },
+      { "name": "Neon Pink", "hex": "#FF0066" },
+      { "name": "Electric Blue", "hex": "#0080FF" },
+      { "name": "Pure White", "hex": "#FFFFFF" },
+      { "name": "Golden Yellow", "hex": "#FFB700" }
+    ]
+  },
+  {
+    "id": "prod-2",
+    "name": "Good Vibes Only LED Sign",
+    "slug": "good-vibes-only-led-sign",
+    "category": "Home Decor",
+    "price": 189,
+    "rating": 4.8,
+    "reviewCount": 98,
+    "image": "home-decor-1",
+    "images": [
+      "/images/products/home-1.jpg",
+      "/images/products/home-1-detail.jpg"
+    ],
+    "description": "Transform any room instantly with our signature 'Good Vibes Only' sign. Perfect for bedrooms, living spaces, game rooms, or home offices. Radiates a comforting, energetic glow.",
+    "features": [
+      "Energy-efficient LED technology",
+      "Child-safe and shock-proof design",
+      "Includes remote control with dimmer (10% to 100% brightness)",
+      "Pre-drilled holes for easy hanging"
+    ],
+    "specifications": {
+      "Material": "Silicone LED Neon + Solid Acrylic",
+      "Backboard Shape": "Rectangular Glass-Look Backboard",
+      "Voltage": "12V DC",
+      "Usage": "Indoor Only",
+      "Lifespan": "50,000+ Hours"
+    },
+    "sizes": [
+      { "name": "Small (24\" / 60cm)", "priceModifier": 0 },
+      { "name": "Medium (32\" / 80cm)", "priceModifier": 60 },
+      { "name": "Large (40\" / 100cm)", "priceModifier": 130 }
+    ],
+    "colors": [
+      { "name": "Neon Pink", "hex": "#FF0066" },
+      { "name": "Electric Blue", "hex": "#0080FF" },
+      { "name": "Lemon Green", "hex": "#39FF14" },
+      { "name": "Sunset Orange", "hex": "#FF5E00" }
+    ]
+  },
+  {
+    "id": "prod-3",
+    "name": "Espresso Bar Neon Glow",
+    "slug": "espresso-bar-neon-glow",
+    "category": "Business Signs",
+    "price": 219,
+    "rating": 4.9,
+    "reviewCount": 73,
+    "image": "business-neon-1",
+    "images": [
+      "/images/products/business-1.jpg"
+    ],
+    "description": "Capture the attention of passersby and create an inviting atmosphere for your cafe or restaurant. A premium neon sign featuring a retro coffee cup illustration with elegant script lettering.",
+    "features": [
+      "High visibility neon glow (visible day or night)",
+      "Outdoor weatherproofing option available",
+      "Supplied with a solid suspension chain",
+      "Easy plug-and-play installation"
+    ],
+    "specifications": {
+      "Material": "Heavy-duty LED tubing + Acrylic",
+      "Backboard Shape": "Cut-to-shape Outline",
+      "Voltage": "12V DC",
+      "Usage": "Indoor (Outdoor IP67 Upgrade available)",
+      "Lifespan": "50,000+ Hours"
+    },
+    "sizes": [
+      { "name": "Standard (28\" / 70cm)", "priceModifier": 0 },
+      { "name": "Large (36\" / 90cm)", "priceModifier": 85 },
+      { "name": "XL (45\" / 115cm)", "priceModifier": 170 }
+    ],
+    "colors": [
+      { "name": "Golden Yellow", "hex": "#FFB700" },
+      { "name": "Warm White", "hex": "#FFDFB0" },
+      { "name": "Electric Blue", "hex": "#0080FF" },
+      { "name": "Ruby Red", "hex": "#FF0000" }
+    ]
+  },
+  {
+    "id": "prod-4",
+    "name": "Custom 3D Channel Letters",
+    "slug": "custom-3d-channel-letters",
+    "category": "Channel Letters",
+    "price": 899,
+    "rating": 5.0,
+    "reviewCount": 42,
+    "image": "channel-letters-1",
+    "images": [
+      "/images/products/channel-1.jpg"
+    ],
+    "description": "Architectural-grade three-dimensional lettering for storefronts, commercial spaces, and exterior facades. Front-lit, back-lit (halo effect), or dual-lit styles custom built to your branding.",
+    "features": [
+      "Precision-welded aluminum returns with acrylic faces",
+      "Internal premium Samsung LED modules",
+      "Fully UL-listed and weather-proofed (IP67)",
+      "Custom brand color matching and scaling available"
+    ],
+    "specifications": {
+      "Material": "Aluminum Body + Polycarbonate Facings + Samsung LEDs",
+      "Backboard Shape": "Raceway Mount or Individual Letter Mount",
+      "Voltage": "120V / 240V AC Direct Wire",
+      "Usage": "Outdoor / Indoor (IP67 Certified)",
+      "Lifespan": "70,000 Hours"
+    },
+    "sizes": [
+      { "name": "Height 12\" / Letter", "priceModifier": 0 },
+      { "name": "Height 18\" / Letter", "priceModifier": 400 },
+      { "name": "Height 24\" / Letter", "priceModifier": 950 }
+    ],
+    "colors": [
+      { "name": "Custom RGB / Brand Match", "hex": "#FFFFFF" }
+    ]
+  },
+  {
+    "id": "prod-5",
+    "name": "Premium Double-Sided Light Box",
+    "slug": "premium-double-sided-light-box",
+    "category": "Light Box",
+    "price": 349,
+    "rating": 4.7,
+    "reviewCount": 35,
+    "image": "lightbox-1",
+    "images": [
+      "/images/products/lightbox-1.jpg"
+    ],
+    "description": "A classic projecting sign that makes your brand stand out from the street corner. Features a premium metal frame, high-impact acrylic face panels, and ultra-bright, even LED illumination.",
+    "features": [
+      "Double-sided projection display",
+      "Heavy-duty rustproof bracket and powder-coated frame",
+      "High UV-resistant acrylic faces",
+      "Waterproof sealing for outdoor endurance"
+    ],
+    "specifications": {
+      "Material": "Extruded Aluminum Frame + Acrylic Facings",
+      "Backboard Shape": "Round / Square Projecting Sign",
+      "Voltage": "110-240V AC Direct",
+      "Usage": "Outdoor IP65 Certified",
+      "Lifespan": "60,000 Hours"
+    },
+    "sizes": [
+      { "name": "Medium Round (20\" / 50cm)", "priceModifier": 0 },
+      { "name": "Large Round (28\" / 70cm)", "priceModifier": 120 },
+      { "name": "Square (24\"x24\" / 60x60cm)", "priceModifier": 70 }
+    ],
+    "colors": [
+      { "name": "Standard White LEDs", "hex": "#FFFFFF" }
+    ]
+  },
+  {
+    "id": "prod-6",
+    "name": "Luxury Laser-Cut Acrylic Sign",
+    "slug": "luxury-laser-cut-acrylic-sign",
+    "category": "Acrylic Signs",
+    "price": 279,
+    "rating": 4.9,
+    "reviewCount": 56,
+    "image": "acrylic-1",
+    "images": [
+      "/images/products/acrylic-1.jpg"
+    ],
+    "description": "High-end corporate logo plaques and wall decor. Precision laser-cut elements on crystal-clear or frosted acrylic boards, raised on solid brass standoffs.",
+    "features": [
+      "Stunning 3D layered text/logos",
+      "Extremely polished edge finish",
+      "Available with warm or cool white LED backlighting (halo style)",
+      "Premium metal mounting standoffs included"
+    ],
+    "specifications": {
+      "Material": "Cast Acrylic Base + Premium Metal Finishes",
+      "Backboard Shape": "Polished Edge Rectangular / Circular Panel",
+      "Voltage": "12V DC Adapter Included",
+      "Usage": "Indoor Recommended",
+      "Lifespan": "50,000 Hours"
+    },
+    "sizes": [
+      { "name": "Standard (24\" x 16\" / 60x40cm)", "priceModifier": 0 },
+      { "name": "Large (36\" x 24\" / 90x60cm)", "priceModifier": 150 },
+      { "name": "Executive (48\" x 32\" / 120x80cm)", "priceModifier": 380 }
+    ],
+    "colors": [
+      { "name": "Frosted + Halo Warm White", "hex": "#FFDFB0" },
+      { "name": "Clear + Halo Pure White", "hex": "#FFFFFF" },
+      { "name": "Black Matte + Halo Blue", "hex": "#0080FF" }
+    ]
+  }
+]
