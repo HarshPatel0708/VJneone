@@ -100,10 +100,10 @@ export default function Header() {
             <Image 
               src="/logo.png" 
               alt="VJneon" 
-              width={130} 
-              height={40} 
+              width={180} 
+              height={55} 
               priority
-              className="h-8 w-auto object-contain transition-transform duration-300 group-hover:scale-105" 
+              className="h-11 w-auto object-contain transition-transform duration-300 group-hover:scale-105" 
             />
             {/* Soft pink and blue back-glow behind logo on hover */}
             <div className="absolute -inset-2 rounded-lg bg-linear-to-r from-neon-pink/15 to-neon-blue/15 opacity-0 blur-md group-hover:opacity-100 transition-opacity duration-300 -z-10" />
