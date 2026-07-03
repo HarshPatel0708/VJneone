@@ -501,7 +501,7 @@ export default function CustomNeonBuilder() {
                 onChange={(e) => setWidthCm(Number(e.target.value))}
                 className="w-full accent-neon-blue h-1.5 bg-neutral-900 rounded-lg cursor-pointer"
               />
-              <p className="text-[10px] text-neutral-500 leading-relaxed font-semibold">
+              <p className="text-xs text-neutral-400 leading-relaxed font-semibold">
                 * Height is automatically calculated based on font proportions to prevent distortion. Recommended for {text.length} characters.
               </p>
             </div>

@@ -383,7 +383,7 @@ export default function HomePage() {
             </div>
 
             <div className="border-t border-white/5 pt-4 space-y-4">
-              <p className="text-[10px] text-neutral-500 leading-relaxed font-semibold">
+              <p className="text-xs text-neutral-400 leading-relaxed font-semibold">
                 * This is a quick demo. Enter our custom builder for full text sizes, letter spacing adjustments, 15+ cursive fonts, backboard outlines, and controller accessories.
               </p>
               <Link 
