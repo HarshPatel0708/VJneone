@@ -54,7 +54,7 @@ export default function Footer() {
               <ShieldCheck className="h-6 w-6 text-neon-pink" />
             </div>
             <div>
-              <h4 className="text-sm font-semibold text-white">2-Year Complete Warranty</h4>
+              <h4 className="text-sm font-semibold text-white">3-Year Complete Warranty</h4>
               <p className="text-xs text-neutral-500 mt-0.5">We cover all electrical and LED components completely.</p>
             </div>
           </div>
