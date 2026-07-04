@@ -140,7 +140,7 @@ export default function Header() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 15 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full left-1/2 -translate-x-1/2 w-[700px] rounded-2xl glass-effect p-6 grid grid-cols-3 gap-6 shadow-2xl mt-1"
+                    className="absolute top-full left-1/2 -translate-x-1/2 w-[700px] rounded-3xl bg-[#09090b]/98 border border-white/10 p-7 grid grid-cols-3 gap-6 shadow-2xl mt-2 backdrop-blur-xl z-50"
                   >
                     <div>
                       <h4 className="text-xs uppercase tracking-wider text-neutral-500 font-bold mb-3">Sign Collections</h4>
@@ -274,7 +274,7 @@ export default function Header() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="absolute right-0 top-full mt-2 w-48 rounded-xl glass-effect p-2 shadow-2xl z-50"
+                    className="absolute right-0 top-full mt-2 w-48 rounded-xl bg-[#09090b]/98 border border-white/10 p-2 shadow-2xl z-50 backdrop-blur-xl"
                   >
                     <div className="px-3 py-1.5 text-[10px] uppercase font-bold text-neutral-500 border-b border-white/5 mb-1.5">
                       Select Country
