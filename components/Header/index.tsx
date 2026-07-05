@@ -102,7 +102,7 @@ export default function Header() {
       </div>
 
       {/* TIER 2: MIDDLE LOGO & SEARCH ROW (White Theme) */}
-      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between gap-6">
+      <div className="max-w-7xl mx-auto px-6 py-2 flex items-center justify-between gap-6">
         
         {/* Left: VJneon Logo */}
         <Link href="/" className="flex items-center gap-2 flex-shrink-0 group">
