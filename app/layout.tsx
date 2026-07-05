@@ -122,7 +122,7 @@ export default function RootLayout({
         />
         <Header />
         {/* Main Content Area with padding top to account for sticky nav bar */}
-        <main className="flex-1 pt-40">{children}</main>
+        <main className="flex-1 pt-[140px]">{children}</main>
         <Footer />
       </body>
     </html>
