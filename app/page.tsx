@@ -23,7 +23,9 @@ import {
   CheckCircle,
   Play,
   Heart,
-  ShoppingCart
+  ShoppingCart,
+  ChevronLeft,
+  ChevronRight
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -56,34 +58,40 @@ export default function HomePage() {
 
   const heroSlides = [
     {
-      title: "Premium 3D Metal Signs",
-      subtitle: "Turn Up the Glow & Class",
-      desc: "Architectural metal framing meet dynamic high-density LED flex neon. Unmatched premium quality constructed to last 50,000+ hours.",
-      bgClass: "from-rose-100 via-pink-50 to-blue-50",
-      accent: "neon-pink",
-      primaryBtn: "Shop Metal Signs",
+      id: "metal-signs",
+      title: "METAL SIGNS",
+      subtitle: "Durable Metal, Endless Creativity",
+      bgClass: "from-neutral-100 via-neutral-50 to-neutral-200",
+      primaryBtn: "EXPLORE MORE",
       link: "/shop?category=Metal%20Signs",
-      badge: "NEW ARRIVALS — 10% OFF"
+      badge: "10% OFF — CODE: METAL10"
     },
     {
-      title: "Wedding Collection Neon",
-      subtitle: "Unforgettable Magical Backdrops",
-      desc: "Turn your special day into a breathtaking illuminated scene. Bestseller layouts with pre-drilled backboards and dimming controllers.",
-      bgClass: "from-pink-100 via-rose-50 to-purple-50",
-      accent: "neon-pink",
-      primaryBtn: "Browse Wedding Neons",
-      link: "/shop?category=Wedding%20Collection",
-      badge: "MOST POPULAR FOR WEDDINGS"
+      id: "beer-bar",
+      title: "BEER & BAR NEON SIGNS",
+      subtitle: "Illuminated Party Vibes",
+      bgClass: "from-blue-950 via-[#06193d] to-indigo-950",
+      primaryBtn: "ORDER NOW",
+      link: "/shop?category=Bar%20Collection",
+      badge: "BAR COLLECTION"
     },
     {
-      title: "Custom Brand & Logo Signs",
-      subtitle: "Stand Out In Full Color",
-      desc: "Promote your storefront, cafe, gym, or office lobby. Send us your design vectors or sketch to build high-end illuminated brand art.",
-      bgClass: "from-blue-100 via-sky-50 to-emerald-50",
-      accent: "neon-blue",
-      primaryBtn: "Get A Free Quote",
-      link: "/upload-design",
-      badge: "BUSINESS STOREFRONT SPECIALISTS"
+      id: "light-box",
+      title: "ULTRA THIN LIGHT BOX",
+      subtitle: "ENLIGHTEN YOUR IMAGINATION",
+      bgClass: "from-neutral-900 via-neutral-950 to-neutral-900",
+      primaryBtn: "CREATE YOUR OWN",
+      link: "/custom-builder",
+      badge: "STUDIO & STOREFRONT"
+    },
+    {
+      id: "smith-neon",
+      title: "The Smith's",
+      subtitle: "EXPLORE OUR PERSONALIZED NEON SIGNS",
+      bgClass: "from-emerald-950 via-[#0a3a20] to-emerald-900",
+      primaryBtn: "PERSONALIZE NOW",
+      link: "/custom-builder",
+      badge: "CUSTOM MAKER"
     }
   ];
 
@@ -148,74 +156,200 @@ export default function HomePage() {
     <div className="w-full bg-white text-neutral-800 relative overflow-hidden">
       
       {/* 1. HERO SLIDER CAROUSEL */}
-      <section className="relative w-full min-h-[500px] md:min-h-[620px] flex items-center justify-center overflow-hidden border-b border-neutral-100 bg-neutral-50/50 pt-20">
+      <section className="relative w-full min-h-[460px] md:min-h-[500px] flex items-center justify-center overflow-hidden border-b border-neutral-100 bg-neutral-50/50">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSlide}
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: 150 }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.5 }}
-            className={`absolute inset-0 bg-gradient-to-br ${heroSlides[currentSlide].bgClass} py-16 px-6 flex items-center justify-center`}
+            exit={{ opacity: 0, x: -150 }}
+            transition={{ duration: 0.45, ease: "easeInOut" }}
+            className={`absolute inset-0 bg-gradient-to-br ${heroSlides[currentSlide].bgClass} py-12 px-6 flex items-center justify-center`}
           >
-            {/* Ambient glows inside slide */}
-            <div className="absolute top-[20%] left-[10%] w-[300px] h-[300px] bg-neon-pink/10 rounded-full blur-3xl -z-10" />
-            <div className="absolute bottom-[20%] right-[10%] w-[350px] h-[350px] bg-neon-blue/10 rounded-full blur-3xl -z-10" />
-
-            <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-              {/* Content text */}
-              <div className="space-y-6 text-center lg:text-left">
-                <span className="inline-block px-3 py-1 rounded-full bg-white/70 border border-white text-[10px] font-bold text-neutral-600 tracking-wider uppercase">
-                  {heroSlides[currentSlide].badge}
-                </span>
-                
-                <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-neutral-900 leading-tight">
-                  {heroSlides[currentSlide].title} <br />
-                  <span className="bg-linear-to-r from-neon-pink to-neon-blue bg-clip-text text-transparent">
-                    {heroSlides[currentSlide].subtitle}
+            {/* Slide 1: Metal Signs */}
+            {heroSlides[currentSlide].id === "metal-signs" && (
+              <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-8 items-center text-neutral-800">
+                <div className="space-y-5 text-center lg:text-left">
+                  <span className="inline-block px-3 py-1 rounded-full bg-white/80 border border-neutral-250 text-[10px] font-black text-neutral-600 tracking-wider uppercase">
+                    {heroSlides[currentSlide].badge}
                   </span>
-                </h1>
+                  <h2 className="text-4xl sm:text-6xl font-black text-neutral-900 leading-none tracking-tight">
+                    {heroSlides[currentSlide].title}
+                  </h2>
+                  <p className="text-sm font-semibold text-neutral-500 uppercase tracking-wider">
+                    {heroSlides[currentSlide].subtitle}
+                  </p>
+                  
+                  {/* Features Grid */}
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-2.5 text-xs sm:text-sm font-bold text-neutral-700 max-w-md mx-auto lg:mx-0">
+                    <div className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-neutral-800" /> Custom Logo/ Artwork</div>
+                    <div className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-neutral-800" /> Personalized Monograms</div>
+                    <div className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-neutral-800" /> Metal Letters & Numbers</div>
+                    <div className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-neutral-800" /> Wall Art & Decor</div>
+                  </div>
 
-                <p className="text-xs sm:text-sm text-neutral-600 max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
-                  {heroSlides[currentSlide].desc}
-                </p>
-
-                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
-                  <Link 
-                    href={heroSlides[currentSlide].link}
-                    className="px-8 py-3 bg-neutral-900 hover:bg-neutral-800 rounded-full text-xs font-bold text-white shadow-lg cursor-pointer transition-all hover:scale-105"
-                  >
-                    {heroSlides[currentSlide].primaryBtn}
-                  </Link>
-                  <Link 
-                    href="/custom-builder"
-                    className="px-8 py-3 bg-white hover:bg-neutral-50 rounded-full text-xs font-bold text-neutral-800 border border-neutral-200 shadow-sm cursor-pointer transition-all flex items-center justify-center gap-1.5"
-                  >
-                    <span>Design Your Own</span> <ArrowRight className="h-4.5 w-4.5 text-neon-blue" />
-                  </Link>
+                  <div className="pt-3 flex justify-center lg:justify-start">
+                    <Link href={heroSlides[currentSlide].link} className="px-8 py-3 bg-[#230b14] hover:bg-neutral-900 rounded-lg text-xs font-bold text-white tracking-widest uppercase flex items-center gap-2 shadow-lg transition-transform hover:scale-103 cursor-pointer">
+                      {heroSlides[currentSlide].primaryBtn} <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </div>
                 </div>
-              </div>
 
-              {/* Graphical Sign Backdrop Preview */}
-              <div className="hidden lg:flex items-center justify-center relative">
-                <div className="relative w-[400px] h-[300px] rounded-3xl bg-neutral-950/90 border border-white/10 shadow-2xl p-8 flex items-center justify-center overflow-hidden">
-                  <div className="absolute inset-0 bg-radial-gradient(circle, rgba(255,0,102,0.15) 0%, transparent 60%)" />
-                  {/* Glowing text vector */}
-                  <h3 className={`text-4xl font-pacifico text-center ${
-                    currentSlide === 2 ? 'neon-text-blue' : 'neon-text-pink'
-                  }`}>
-                    {currentSlide === 0 && "VJ Metal Art"}
-                    {currentSlide === 1 && "Sarah & Mark"}
-                    {currentSlide === 2 && "The Lobby"}
-                  </h3>
-                  <div className="absolute bottom-4 text-[9px] uppercase font-bold text-neutral-500 tracking-wider">
-                    VJneon Custom Sign Showcase
+                {/* Right side items preview */}
+                <div className="hidden lg:flex items-center justify-center gap-6 relative">
+                  <div className="text-7xl font-black tracking-tighter text-neutral-800 border-4 border-neutral-800 p-4 rounded-2xl rotate-[-6deg] bg-white shadow-xl select-none">
+                    CN
+                  </div>
+                  <div className="flex flex-col gap-4">
+                    <div className="border-2 border-neutral-800 bg-white p-3 rounded-full flex items-center justify-center w-22 h-22 shadow-xl rotate-[6deg] select-none">
+                      <span className="text-[10px] font-black text-neutral-800 text-center leading-tight">🐔<br/>HEN HOUSE</span>
+                    </div>
+                    <div className="bg-[#230b14] text-white py-1.5 px-4 rounded-lg text-center text-xs font-extrabold shadow-md">
+                      10% OFF
+                    </div>
+                  </div>
+
+                  {/* Stamp badge */}
+                  <div className="absolute -top-6 right-8 bg-white border-2 border-neutral-800 rounded-full w-20 h-20 flex items-center justify-center flex-col rotate-[15deg] shadow-lg">
+                    <span className="text-[8px] font-black tracking-widest text-neutral-400">BEST</span>
+                    <span className="text-xs font-black text-neutral-800 leading-none">PRICE</span>
+                    <span className="text-[7px] font-black text-neutral-500">GUARANTEED</span>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
+
+            {/* Slide 2: Beer & Bar Neon Signs */}
+            {heroSlides[currentSlide].id === "beer-bar" && (
+              <div className="max-w-7xl mx-auto w-full flex flex-col items-center text-white text-center justify-center relative px-6">
+                
+                {/* Collage Left */}
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 opacity-15 lg:opacity-100 hidden md:flex flex-col gap-5 text-left select-none">
+                  <span className="font-pacifico text-2xl neon-text-pink rotate-[-10deg]">Bar 🍹</span>
+                  <span className="font-dosis text-3xl font-black border border-amber-400 text-amber-300 py-1 px-4 rounded-lg neon-shadow-blue">BEER 🍻</span>
+                  <span className="font-tilt-neon text-lg font-bold text-cyan-400">OKTOBERFEST</span>
+                </div>
+
+                {/* Collage Right */}
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 opacity-15 lg:opacity-100 hidden md:flex flex-col gap-5 text-right select-none">
+                  <span className="font-pacifico text-2xl neon-text-blue rotate-[10deg]">Pub 🍷</span>
+                  <span className="font-dosis text-3xl font-black border border-pink-500 text-pink-400 py-1 px-4 rounded-lg neon-shadow-pink">BAR 🥂</span>
+                  <span className="font-tilt-neon text-lg font-bold text-yellow-400">DRINKS 🍺</span>
+                </div>
+
+                {/* Center Content */}
+                <div className="space-y-5 max-w-xl z-10">
+                  <span className="inline-block px-3 py-1 rounded-full bg-blue-900/40 border border-blue-500/30 text-[10px] font-bold text-blue-300 tracking-wider uppercase">
+                    {heroSlides[currentSlide].badge}
+                  </span>
+                  <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight tracking-tight text-white">
+                    BEER & BAR <br/>
+                    <span className="neon-text-pink text-5xl sm:text-7xl font-tilt-neon">NEON SIGNS</span>
+                  </h2>
+                  <p className="text-xs text-neutral-300 max-w-xs sm:max-w-md mx-auto leading-relaxed">
+                    Light up your bar counter, home lounge, or tavern setup with low-voltage safety neon art signs.
+                  </p>
+                  <div className="pt-3 flex justify-center">
+                    <Link href={heroSlides[currentSlide].link} className="px-8 py-3 bg-white hover:bg-neutral-100 text-neutral-900 rounded-lg text-xs font-bold tracking-widest uppercase flex items-center gap-2 shadow-lg transition-transform hover:scale-103 cursor-pointer">
+                      {heroSlides[currentSlide].primaryBtn} <ArrowRight className="h-4 w-4 text-neutral-900" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Slide 3: Ultra Thin Light Box */}
+            {heroSlides[currentSlide].id === "light-box" && (
+              <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-8 items-center text-white">
+                <div className="space-y-5 text-center lg:text-left">
+                  <span className="inline-block px-3 py-1 rounded-full bg-neutral-800 border border-neutral-700 text-[10px] font-bold text-neutral-300 tracking-wider uppercase">
+                    {heroSlides[currentSlide].badge}
+                  </span>
+                  <h2 className="text-4xl sm:text-6xl font-black tracking-tight leading-none text-white">
+                    ULTRA THIN <br/>
+                    <span className="bg-gradient-to-r from-amber-400 to-yellow-500 bg-clip-text text-transparent">LIGHT BOX</span>
+                  </h2>
+                  <p className="text-xs sm:text-sm font-bold text-neutral-400 uppercase tracking-widest">
+                    {heroSlides[currentSlide].subtitle}
+                  </p>
+                  <p className="text-xs sm:text-sm text-neutral-400 max-w-md mx-auto lg:mx-0 leading-relaxed">
+                    Elevate your business signage or bedroom design with customizable animated light boxes. High-definition anime prints and corporate displays.
+                  </p>
+                  <div className="pt-3 flex justify-center lg:justify-start">
+                    <Link href={heroSlides[currentSlide].link} className="px-8 py-3 bg-yellow-500 hover:bg-yellow-400 text-neutral-950 rounded-lg text-xs font-bold tracking-widest uppercase flex items-center gap-2 shadow-lg transition-transform hover:scale-103 cursor-pointer">
+                      {heroSlides[currentSlide].primaryBtn} <ArrowRight className="h-4 w-4 text-neutral-950" />
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Right side anime mockup */}
+                <div className="hidden lg:flex items-center justify-center relative">
+                  <div className="relative border-4 border-neutral-700 bg-neutral-950 p-4 rounded-2xl w-[240px] h-[310px] shadow-2xl flex flex-col justify-between overflow-hidden select-none">
+                    <div className="absolute inset-0 bg-radial-gradient(circle, rgba(245,158,11,0.1) 0%, transparent 60%)" />
+                    <div className="border border-neutral-800 bg-neutral-900 rounded-lg p-2.5 text-center shadow-md">
+                      <span className="text-[9px] font-black text-amber-500 tracking-widest uppercase">🎙️ PODCAST</span>
+                    </div>
+                    {/* Anime drawing mockup */}
+                    <div className="h-40 w-full bg-neutral-900 rounded-lg flex items-center justify-center relative border border-neutral-850 overflow-hidden">
+                      <span className="font-pacifico text-3xl neon-text-blue animate-pulse">VJ</span>
+                      <span className="absolute bottom-2 right-2 text-[7px] text-neutral-500">ANIME EDITION</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Slide 4: Moss Wall Script */}
+            {heroSlides[currentSlide].id === "smith-neon" && (
+              <div className="max-w-7xl mx-auto w-full flex flex-col items-center justify-center text-white text-center relative py-6">
+                <div className="absolute left-[8%] top-[10%] opacity-20 hidden md:block text-2xl select-none">🌿</div>
+                <div className="absolute right-[8%] bottom-[10%] opacity-20 hidden md:block text-2xl select-none">🌱</div>
+
+                <div className="space-y-5 max-w-xl">
+                  <span className="inline-block px-3 py-1 rounded-full bg-emerald-900/60 border border-emerald-500/20 text-[10px] font-bold text-emerald-300 tracking-wider uppercase">
+                    {heroSlides[currentSlide].badge}
+                  </span>
+                  
+                  {/* Elegant Script Cursive Name */}
+                  <h2 className="font-sacramento text-6xl sm:text-8xl text-white neon-text-white rotate-[-2deg] py-3 leading-none select-none">
+                    {heroSlides[currentSlide].title}
+                  </h2>
+                  
+                  <p className="text-xs sm:text-sm font-bold text-neutral-200 tracking-widest uppercase">
+                    {heroSlides[currentSlide].subtitle}
+                  </p>
+                  
+                  <p className="text-xs text-neutral-300 max-w-xs sm:max-w-sm mx-auto leading-relaxed">
+                    Personalized handwriting neon lettering mounted on premium foliage event backdrop walls.
+                  </p>
+                  
+                  <div className="pt-3 flex justify-center">
+                    <Link href={heroSlides[currentSlide].link} className="px-8 py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold tracking-widest uppercase flex items-center gap-2 shadow-lg transition-transform hover:scale-103 cursor-pointer border border-emerald-450/30">
+                      {heroSlides[currentSlide].primaryBtn} <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            )}
           </motion.div>
         </AnimatePresence>
+
+        {/* Carousel Navigation Arrows */}
+        <button 
+          onClick={() => setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)}
+          className="absolute left-6 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-white/70 hover:bg-white text-neutral-800 border border-neutral-200/80 shadow-md hover:scale-105 transition-all cursor-pointer hidden md:flex items-center justify-center"
+          aria-label="Previous Slide"
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </button>
+
+        <button 
+          onClick={() => setCurrentSlide((prev) => (prev + 1) % heroSlides.length)}
+          className="absolute right-6 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-white/70 hover:bg-white text-neutral-800 border border-neutral-200/80 shadow-md hover:scale-105 transition-all cursor-pointer hidden md:flex items-center justify-center"
+          aria-label="Next Slide"
+        >
+          <ChevronRight className="h-5 w-5" />
+        </button>
 
         {/* Carousel indicators */}
         <div className="absolute bottom-6 flex gap-2.5 z-20">
@@ -224,7 +358,7 @@ export default function HomePage() {
               key={i}
               onClick={() => setCurrentSlide(i)}
               className={`h-2.5 rounded-full transition-all cursor-pointer ${
-                currentSlide === i ? "w-8 bg-neutral-800" : "w-2.5 bg-neutral-300"
+                currentSlide === i ? "w-8 bg-neutral-800" : "w-2.5 bg-neutral-350"
               }`}
               aria-label={`Slide ${i + 1}`}
             />
