@@ -49,32 +49,55 @@ export default function Header() {
     <div className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-neutral-200 shadow-xs w-full">
       
       {/* TIER 1: TOP ANNOUNCEMENT BAR (Mint Green Theme) */}
-      <div className="w-full bg-[#e0fcf5] border-b border-[#c8f5ea] text-neutral-800 text-[10px] sm:text-[11px] font-semibold py-2 px-4 flex items-center justify-between">
-        {/* Trustpilot review widget */}
-        <div className="flex items-center gap-1 text-[#0f766e]">
-          <span className="font-bold">Trustpilot 4.8</span>
-          <div className="flex text-amber-500 gap-0.5">
-            {[...Array(5)].map((_, i) => (
-              <StarIcon key={i} className="h-3 w-3 fill-amber-500 text-amber-500" />
-            ))}
+      <div className="w-full bg-[#e0fcf5] border-b border-[#c8f5ea] text-neutral-800 py-2.5 px-4 flex items-center justify-between overflow-hidden">
+        
+        {/* Scrolling Marquee Container */}
+        <div className="flex-1 overflow-hidden relative select-none mr-4">
+          <div className="flex gap-16 whitespace-nowrap animate-marquee-slow text-xs sm:text-[13px] font-extrabold text-neutral-700 uppercase">
+            
+            {/* Set 1 */}
+            <span className="flex items-center gap-1 text-[#0f766e]">
+              TRUSTPILOT 4.8
+              <span className="flex text-amber-500 gap-0.5">
+                {[...Array(5)].map((_, i) => (
+                  <StarIcon key={i} className="h-3.5 w-3.5 fill-amber-500 text-amber-500" />
+                ))}
+              </span>
+            </span>
+            <span className="text-neutral-300">|</span>
+            <span>BUY Now, PAY Later</span>
+            <span className="text-neutral-300">|</span>
+            <span>We Deliver in 6-9 Days*</span>
+            <span className="text-neutral-300">|</span>
+            <span>3 Year Warranty</span>
+            <span className="text-neutral-300">|</span>
+
+            {/* Set 2 (Duplicate for loop) */}
+            <span className="flex items-center gap-1 text-[#0f766e]">
+              TRUSTPILOT 4.8
+              <span className="flex text-amber-500 gap-0.5">
+                {[...Array(5)].map((_, i) => (
+                  <StarIcon key={i} className="h-3.5 w-3.5 fill-amber-500 text-amber-500" />
+                ))}
+              </span>
+            </span>
+            <span className="text-neutral-300">|</span>
+            <span>BUY Now, PAY Later</span>
+            <span className="text-neutral-300">|</span>
+            <span>We Deliver in 6-9 Days*</span>
+            <span className="text-neutral-300">|</span>
+            <span>3 Year Warranty</span>
+            <span className="text-neutral-300">|</span>
+            
           </div>
         </div>
 
-        {/* Dynamic center value points */}
-        <div className="hidden md:flex items-center gap-8 text-neutral-600">
-          <span>BUY Now, PAY Later</span>
-          <span className="border-l border-neutral-300 h-3" />
-          <span>We Deliver in 6-9 Days*</span>
-          <span className="border-l border-neutral-300 h-3" />
-          <span>3 Year Warranty</span>
-        </div>
-
-        {/* Right column: Phone contact */}
-        <a href="tel:+18483168660" className="flex items-center gap-1.5 text-neutral-700 hover:text-neon-pink transition-colors">
+        {/* Right column: Phone contact (Static) */}
+        <a href="tel:+18483168660" className="flex items-center gap-1.5 text-neutral-700 hover:text-neon-pink transition-colors flex-shrink-0">
           <div className="p-1 rounded-full bg-neon-pink text-white flex items-center justify-center scale-90">
             <Phone className="h-2.5 w-2.5 fill-white" />
           </div>
-          <span className="text-[10px] font-bold">Call Us: +1 (848) 316-8660</span>
+          <span className="text-xs font-extrabold">Call Us: +1 (848) 316-8660</span>
         </a>
       </div>
 
