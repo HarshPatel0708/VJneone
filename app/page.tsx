@@ -25,7 +25,12 @@ import {
   Heart,
   ShoppingCart,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Tags,
+  EyeOff,
+  Wallet,
+  Award,
+  RefreshCw
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -400,70 +405,166 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 2. KEY SELLING POINTS STRIP */}
-      <section className="w-full bg-neutral-50 py-6 border-b border-neutral-100">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center md:text-left">
-          <div className="flex flex-col sm:flex-row items-center gap-3 justify-center md:justify-start">
-            <div className="p-2.5 rounded-xl bg-neon-pink/10 border border-neon-pink/15 text-neon-pink">
-              <ShieldCheck className="h-5 w-5" />
-            </div>
-            <div>
-              <h4 className="text-xs font-bold text-neutral-800">3-Year Complete Warranty</h4>
-              <p className="text-[10px] text-neutral-500 mt-0.5">Electrical & LED cover</p>
-            </div>
-          </div>
+      {/* 2. TRUST/FEATURE BADGES STRIP */}
+      <section className="w-full bg-[#fcfcfc] py-10 border-b border-neutral-100">
+        <div className="max-w-7xl mx-auto px-6">
+          {/* Section title */}
+          <h3 className="text-center text-xs sm:text-sm font-black text-[#f44b7d] tracking-widest uppercase mb-8">
+            #1 Custom LED Neon Brand | Fast Shipping Worldwide
+          </h3>
 
-          <div className="flex flex-col sm:flex-row items-center gap-3 justify-center md:justify-start">
-            <div className="p-2.5 rounded-xl bg-neon-blue/10 border border-neon-blue/15 text-neon-blue">
-              <Truck className="h-5 w-5" />
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 text-center">
+            {/* Price Match Guarantee */}
+            <div className="flex flex-col items-center gap-2">
+              <div className="p-3.5 rounded-full bg-rose-50/70 border border-rose-100/50 text-[#f44b7d] flex items-center justify-center w-12 h-12 shadow-xs">
+                <Tags className="h-5 w-5 text-[#f44b7d]" />
+              </div>
+              <h4 className="text-xs font-bold text-neutral-800 leading-snug">Price Match<br/>Guarantee</h4>
             </div>
-            <div>
-              <h4 className="text-xs font-bold text-neutral-800">Free Insured Global Delivery</h4>
-              <p className="text-[10px] text-neutral-500 mt-0.5">Free on orders above $250</p>
-            </div>
-          </div>
 
-          <div className="flex flex-col sm:flex-row items-center gap-3 justify-center md:justify-start">
-            <div className="p-2.5 rounded-xl bg-neutral-100 border border-neutral-200 text-neutral-600">
-              <RotateCcw className="h-5 w-5" />
+            {/* UL Listed Sign Makers */}
+            <div className="flex flex-col items-center gap-2">
+              <div className="p-3.5 rounded-full bg-rose-50/70 border border-rose-100/50 text-[#f44b7d] flex items-center justify-center w-12 h-12 shadow-xs">
+                <ShieldCheck className="h-5 w-5 text-[#f44b7d]" />
+              </div>
+              <h4 className="text-xs font-bold text-neutral-800 leading-snug">UL Listed<br/>Sign Makers</h4>
             </div>
-            <div>
-              <h4 className="text-xs font-bold text-neutral-800">100% Transit Insured</h4>
-              <p className="text-[10px] text-neutral-500 mt-0.5">Broken? Free replacement</p>
-            </div>
-          </div>
 
-          <div className="flex flex-col sm:flex-row items-center gap-3 justify-center md:justify-start">
-            <div className="p-2.5 rounded-xl bg-green-50 border border-green-150 text-green-600">
-              <Sparkles className="h-5 w-5" />
+            {/* No Hidden Charges */}
+            <div className="flex flex-col items-center gap-2">
+              <div className="p-3.5 rounded-full bg-rose-50/70 border border-rose-100/50 text-[#f44b7d] flex items-center justify-center w-12 h-12 shadow-xs">
+                <EyeOff className="h-5 w-5 text-[#f44b7d]" />
+              </div>
+              <h4 className="text-xs font-bold text-neutral-800 leading-snug">No Hidden<br/>Charges</h4>
             </div>
-            <div>
-              <h4 className="text-xs font-bold text-neutral-800">Child-Safe Low Voltage</h4>
-              <p className="text-[10px] text-neutral-500 mt-0.5">12V safety, low heat</p>
+
+            {/* BUY Now, PAY Later */}
+            <div className="flex flex-col items-center gap-2">
+              <div className="p-3.5 rounded-full bg-rose-50/70 border border-rose-100/50 text-[#f44b7d] flex items-center justify-center w-12 h-12 shadow-xs">
+                <Wallet className="h-5 w-5 text-[#f44b7d]" />
+              </div>
+              <h4 className="text-xs font-bold text-neutral-800 leading-snug">BUY Now,<br/>PAY Later</h4>
+            </div>
+
+            {/* 3-Year Warranty* */}
+            <div className="flex flex-col items-center gap-2">
+              <div className="p-3.5 rounded-full bg-rose-50/70 border border-rose-100/50 text-[#f44b7d] flex items-center justify-center w-12 h-12 shadow-xs">
+                <Award className="h-5 w-5 text-[#f44b7d]" />
+              </div>
+              <h4 className="text-xs font-bold text-neutral-800 leading-snug">3-Year<br/>Warranty*</h4>
+            </div>
+
+            {/* Unlimited Revisions */}
+            <div className="flex flex-col items-center gap-2">
+              <div className="p-3.5 rounded-full bg-rose-50/70 border border-rose-100/50 text-[#f44b7d] flex items-center justify-center w-12 h-12 shadow-xs">
+                <RefreshCw className="h-5 w-5 text-[#f44b7d]" />
+              </div>
+              <h4 className="text-xs font-bold text-neutral-800 leading-snug">Unlimited<br/>Revisions</h4>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 3. CATEGORY CIRCLES GRID */}
+      {/* 3. CATEGORY VISUAL GRID: WHAT WILL YOU CREATE? */}
       <section className="max-w-7xl mx-auto px-6 py-16 text-center">
-        <h2 className="text-2xl sm:text-3xl font-black text-neutral-900 mb-2">Shop Our Collections</h2>
-        <p className="text-xs text-neutral-500 font-medium mb-10">Handcrafted illuminated art tailored to your vibe</p>
+        <h2 className="text-2xl sm:text-3xl font-black text-[#8b1c7c] mb-10 tracking-tight uppercase">What Will You Create?</h2>
         
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 justify-center">
-          {categories.map((cat, idx) => (
-            <Link key={idx} href={cat.link} className="group flex flex-col items-center gap-3">
-              <div className="relative w-28 h-28 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-4xl shadow-sm transition-transform duration-300 group-hover:scale-105 group-hover:border-neon-pink/30 group-hover:shadow-md">
-                <span>{cat.emoji}</span>
-                <span className="absolute -top-1 -right-1 px-2 py-0.5 rounded-full bg-linear-to-r from-neon-pink to-neon-blue text-[8px] font-bold text-white uppercase scale-90">
-                  {cat.tag}
-                </span>
-              </div>
-              <span className="text-xs font-bold text-neutral-700 group-hover:text-neon-pink transition-colors">
-                {cat.name}
-              </span>
+          {/* Card 1: LED Text Neon */}
+          <div className="flex flex-col items-center group">
+            <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-shadow bg-neutral-100">
+              <Image 
+                src="/led_text_neon.png" 
+                alt="LED Text Neon" 
+                fill 
+                sizes="(max-w-7xl) 16vw, 150px"
+                className="object-cover transition-transform duration-550 group-hover:scale-105" 
+              />
+            </div>
+            <Link href="/custom-builder" className="w-full mt-4 py-2.5 rounded-full bg-[#f44b7d] hover:bg-neutral-900 text-white text-[10px] sm:text-xs font-extrabold uppercase text-center transition-colors shadow-sm tracking-wider cursor-pointer">
+              LED Text Neon
             </Link>
-          ))}
+          </div>
+
+          {/* Card 2: Custom LED Logo */}
+          <div className="flex flex-col items-center group">
+            <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-shadow bg-neutral-100">
+              <Image 
+                src="/custom_led_logo.png" 
+                alt="Custom LED Logo" 
+                fill 
+                sizes="(max-w-7xl) 16vw, 150px"
+                className="object-cover transition-transform duration-550 group-hover:scale-105" 
+              />
+            </div>
+            <Link href="/upload-design" className="w-full mt-4 py-2.5 rounded-full bg-[#f44b7d] hover:bg-neutral-900 text-white text-[10px] sm:text-xs font-extrabold uppercase text-center transition-colors shadow-sm tracking-wider cursor-pointer">
+              Custom LED Logo
+            </Link>
+          </div>
+
+          {/* Card 3: Ultra-Thin Lightbox */}
+          <div className="flex flex-col items-center group">
+            <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-shadow bg-neutral-100">
+              <Image 
+                src="/ultra_thin_lightbox.png" 
+                alt="Ultra-Thin Lightbox" 
+                fill 
+                sizes="(max-w-7xl) 16vw, 150px"
+                className="object-cover transition-transform duration-550 group-hover:scale-105" 
+              />
+            </div>
+            <Link href="/shop?category=Light%20Box" className="w-full mt-4 py-2.5 rounded-full bg-[#f44b7d] hover:bg-neutral-900 text-white text-[10px] sm:text-xs font-extrabold uppercase text-center transition-colors shadow-sm tracking-wider cursor-pointer">
+              Ultra-Thin Lightbox
+            </Link>
+          </div>
+
+          {/* Card 4: Layered Acrylic Signs */}
+          <div className="flex flex-col items-center group">
+            <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-shadow bg-neutral-100">
+              <Image 
+                src="/layered_acrylic_signs.png" 
+                alt="Layered Acrylic Signs" 
+                fill 
+                sizes="(max-w-7xl) 16vw, 150px"
+                className="object-cover transition-transform duration-550 group-hover:scale-105" 
+              />
+            </div>
+            <Link href="/shop?category=Acrylic%20Signs" className="w-full mt-4 py-2.5 rounded-full bg-[#f44b7d] hover:bg-neutral-900 text-white text-[10px] sm:text-xs font-extrabold uppercase text-center transition-colors shadow-sm tracking-wider cursor-pointer">
+              Layered Acrylic Signs
+            </Link>
+          </div>
+
+          {/* Card 5: Metal Letters/Logo */}
+          <div className="flex flex-col items-center group">
+            <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-shadow bg-neutral-100">
+              <Image 
+                src="/metal_letters_logo.png" 
+                alt="Metal Letters/Logo" 
+                fill 
+                sizes="(max-w-7xl) 16vw, 150px"
+                className="object-cover transition-transform duration-550 group-hover:scale-105" 
+              />
+            </div>
+            <Link href="/shop?category=Metal%20Signs" className="w-full mt-4 py-2.5 rounded-full bg-[#f44b7d] hover:bg-neutral-900 text-white text-[10px] sm:text-xs font-extrabold uppercase text-center transition-colors shadow-sm tracking-wider cursor-pointer">
+              Metal Letters/Logo
+            </Link>
+          </div>
+
+          {/* Card 6: Channel Letter/Box */}
+          <div className="flex flex-col items-center group">
+            <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-shadow bg-neutral-100">
+              <Image 
+                src="/channel_letter_box.png" 
+                alt="Channel Letter/Box" 
+                fill 
+                sizes="(max-w-7xl) 16vw, 150px"
+                className="object-cover transition-transform duration-550 group-hover:scale-105" 
+              />
+            </div>
+            <Link href="/shop?category=Channel%20Letters" className="w-full mt-4 py-2.5 rounded-full bg-[#f44b7d] hover:bg-neutral-900 text-white text-[10px] sm:text-xs font-extrabold uppercase text-center transition-colors shadow-sm tracking-wider cursor-pointer">
+              Channel Letter/Box
+            </Link>
+          </div>
         </div>
       </section>
 
