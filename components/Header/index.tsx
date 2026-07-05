@@ -70,11 +70,11 @@ export default function Header() {
         </div>
 
         {/* Right column: Phone contact */}
-        <a href="tel:+13026001080" className="flex items-center gap-1.5 text-neutral-700 hover:text-neon-pink transition-colors">
+        <a href="tel:+18483168660" className="flex items-center gap-1.5 text-neutral-700 hover:text-neon-pink transition-colors">
           <div className="p-1 rounded-full bg-neon-pink text-white flex items-center justify-center scale-90">
             <Phone className="h-2.5 w-2.5 fill-white" />
           </div>
-          <span className="text-[10px] font-bold">Call Us: +1 302 600 1080</span>
+          <span className="text-[10px] font-bold">Call Us: +1 (848) 316-8660</span>
         </a>
       </div>
 
