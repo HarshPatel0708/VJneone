@@ -8,482 +8,413 @@ import {
   ArrowRight, 
   ShieldCheck, 
   Truck, 
-  Clock, 
-  HelpCircle, 
-  ChevronDown, 
+  RotateCcw,
   Star,
   Quote,
   Flame,
-  UploadCloud,
-  PenTool,
-  Bookmark
+  ArrowUpRight,
+  Upload,
+  Calendar,
+  Clock,
+  ChevronDown,
+  ChevronUp,
+  MapPin,
+  Phone,
+  CheckCircle,
+  Play,
+  Heart,
+  ShoppingCart
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// Import mock data directly
+// Import mock data
 import products from "@/data/products.json";
 import blogs from "@/data/blogs.json";
 import faqs from "@/data/faq.json";
 import testimonials from "@/data/testimonials.json";
 import { useConfig } from "@/hooks/useConfig";
 import { useWishlist } from "@/hooks/useWishlist";
+import { useCart } from "@/hooks/useCart";
+import canvasConfetti from "canvas-confetti";
 
 export default function HomePage() {
   const { formatPrice } = useConfig();
   const { toggleItem, hasItem } = useWishlist();
+  const { addItem } = useCart();
 
-  // Mini-Builder Experience Center state
-  const [expText, setExpText] = useState("Vibe");
-  const [expColor, setExpColor] = useState({ hex: "#ff0066", name: "VJ Pink", glow: "rgba(255, 0, 102, 0.8)" });
-  const [expBackdrop, setExpBackdrop] = useState("bedroom"); // bar, wedding, bedroom
-  
-  // FAQ active state
+  // Active FAQ accordion state
   const [activeFaq, setActiveFaq] = useState<string | null>(null);
+  
+  // Best Sellers active category state
+  const [activeTab, setActiveTab] = useState<string>("All Sellers");
 
-  // Parallax / cursor movement tracking (simple simulation)
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  // Promo Slider Carousel state
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // About expand state
+  const [isAboutExpanded, setIsAboutExpanded] = useState(false);
+
+  const heroSlides = [
+    {
+      title: "Premium 3D Metal Signs",
+      subtitle: "Turn Up the Glow & Class",
+      desc: "Architectural metal framing meet dynamic high-density LED flex neon. Unmatched premium quality constructed to last 50,000+ hours.",
+      bgClass: "from-rose-100 via-pink-50 to-blue-50",
+      accent: "neon-pink",
+      primaryBtn: "Shop Metal Signs",
+      link: "/shop?category=Metal%20Signs",
+      badge: "NEW ARRIVALS — 10% OFF"
+    },
+    {
+      title: "Wedding Collection Neon",
+      subtitle: "Unforgettable Magical Backdrops",
+      desc: "Turn your special day into a breathtaking illuminated scene. Bestseller layouts with pre-drilled backboards and dimming controllers.",
+      bgClass: "from-pink-100 via-rose-50 to-purple-50",
+      accent: "neon-pink",
+      primaryBtn: "Browse Wedding Neons",
+      link: "/shop?category=Wedding%20Collection",
+      badge: "MOST POPULAR FOR WEDDINGS"
+    },
+    {
+      title: "Custom Brand & Logo Signs",
+      subtitle: "Stand Out In Full Color",
+      desc: "Promote your storefront, cafe, gym, or office lobby. Send us your design vectors or sketch to build high-end illuminated brand art.",
+      bgClass: "from-blue-100 via-sky-50 to-emerald-50",
+      accent: "neon-blue",
+      primaryBtn: "Get A Free Quote",
+      link: "/upload-design",
+      badge: "BUSINESS STOREFRONT SPECIALISTS"
+    }
+  ];
+
+  // Rotate hero slides
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({
-        x: (e.clientX / window.innerWidth - 0.5) * 20,
-        y: (e.clientY / window.innerHeight - 0.5) * 20
-      });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [heroSlides.length]);
+
+  // Brand logos for marquee
+  const brandLogos = [
+    { name: "Nike", text: "NIKE" },
+    { name: "Pepsi", text: "PEPSI" },
+    { name: "Google", text: "GOOGLE" },
+    { name: "Amazon", text: "AMAZON" },
+    { name: "Starbucks", text: "STARBUCKS" },
+    { name: "Adidas", text: "ADIDAS" },
+    { name: "Red Bull", text: "RED BULL" },
+    { name: "Coca Cola", text: "COCA COLA" }
+  ];
+
+  // Category circles data
+  const categories = [
+    { name: "Wedding Signs", link: "/shop?category=Wedding%20Collection", emoji: "💍", tag: "Hot" },
+    { name: "Business Signs", link: "/shop?category=Business%20Signs", emoji: "💼", tag: "Popular" },
+    { name: "Home Decor", link: "/shop?category=Home%20Decor", emoji: "🏡", tag: "New" },
+    { name: "Acrylic Signs", link: "/shop?category=Acrylic%20Signs", emoji: "💎", tag: "Stunning" },
+    { name: "Channel Letters", link: "/shop?category=Channel%20Letters", emoji: "🔠", tag: "Luxury" },
+    { name: "Metal Signs", link: "/shop?category=Metal%20Signs", emoji: "⚡", tag: "Premium" }
+  ];
+
+  // Filter products by active tab
+  const getFilteredProducts = () => {
+    if (activeTab === "All Sellers") return products.slice(0, 4);
+    return products.filter(p => p.category === activeTab).slice(0, 4);
+  };
+
+  const handleQuickAdd = (product: any) => {
+    addItem({
+      id: `${product.id}-${product.colors[0].name.replace(/\s+/g, "")}-${product.sizes[0].name.replace(/\s+/g, "")}`,
+      productId: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.images[0],
+      color: product.colors[0].name,
+      size: product.sizes[0].name,
+      backboard: "Cut To Shape (Outline)",
+      usage: "indoor"
+    });
+    
+    // Confetti pop!
+    canvasConfetti({
+      particleCount: 50,
+      spread: 60,
+      origin: { y: 0.8 }
+    });
+  };
 
   return (
-    <div className="w-full bg-[#030303] text-white relative overflow-hidden">
+    <div className="w-full bg-white text-neutral-800 relative overflow-hidden">
       
-      {/* BACKGROUND DECORATIONS (Floating ambient lights) */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-neon-pink/5 rounded-full blur-3xl -z-10 animate-pulse-slow" />
-      <div className="absolute top-[20%] right-1/4 w-[600px] h-[600px] bg-neon-blue/5 rounded-full blur-3xl -z-10" style={{ animationDuration: '6s' }} />
-      <div className="absolute bottom-[20%] left-10 w-[400px] h-[400px] bg-neon-pink/3 rounded-full blur-3xl -z-10" />
-
-      {/* 1. HERO SECTION */}
-      <section className="max-w-7xl mx-auto px-6 py-12 md:py-24 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative">
-        {/* Decorative Grid Lines backdrop */}
-        <div className="absolute inset-0 bg-grid-lines pointer-events-none -z-20 opacity-40" />
-
-        {/* Left Column: Bold headings, calls to action (7 Columns) */}
-        <div className="lg:col-span-7 space-y-8">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-linear-to-r from-neon-pink/10 to-neon-blue/10 border border-white/10 text-xs font-semibold text-neutral-300"
+      {/* 1. HERO SLIDER CAROUSEL */}
+      <section className="relative w-full min-h-[500px] md:min-h-[620px] flex items-center justify-center overflow-hidden border-b border-neutral-100 bg-neutral-50/50 pt-20">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentSlide}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.5 }}
+            className={`absolute inset-0 bg-gradient-to-br ${heroSlides[currentSlide].bgClass} py-16 px-6 flex items-center justify-center`}
           >
-            <Sparkles className="h-3.5 w-3.5 text-neon-pink animate-spin" style={{ animationDuration: '4s' }} /> 
-            <span>Premium LED Signage Art</span>
-          </motion.div>
+            {/* Ambient glows inside slide */}
+            <div className="absolute top-[20%] left-[10%] w-[300px] h-[300px] bg-neon-pink/10 rounded-full blur-3xl -z-10" />
+            <div className="absolute bottom-[20%] right-[10%] w-[350px] h-[350px] bg-neon-blue/10 rounded-full blur-3xl -z-10" />
 
-          <motion.h1 
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-4xl sm:text-6xl font-black tracking-tight leading-[1.05]"
-          >
-            Glow Up Your Brand With <br className="hidden sm:inline" />
-            <span className="bg-linear-to-r from-neon-pink via-white to-neon-blue bg-clip-text text-transparent filter drop-shadow-sm">
-              Custom Neon Art
-            </span>
-          </motion.h1>
+            <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+              {/* Content text */}
+              <div className="space-y-6 text-center lg:text-left">
+                <span className="inline-block px-3 py-1 rounded-full bg-white/70 border border-white text-[10px] font-bold text-neutral-600 tracking-wider uppercase">
+                  {heroSlides[currentSlide].badge}
+                </span>
+                
+                <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-neutral-900 leading-tight">
+                  {heroSlides[currentSlide].title} <br />
+                  <span className="bg-linear-to-r from-neon-pink to-neon-blue bg-clip-text text-transparent">
+                    {heroSlides[currentSlide].subtitle}
+                  </span>
+                </h1>
 
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-xs sm:text-sm text-neutral-400 max-w-xl leading-relaxed font-medium"
-          >
-            Luxury design meets safe, energy-efficient illumination. Create bespoke signature signage for your wedding backdrop, corporate workspace, storefront, or bedroom using our advanced live builder.
-          </motion.p>
+                <p className="text-xs sm:text-sm text-neutral-600 max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
+                  {heroSlides[currentSlide].desc}
+                </p>
 
-          {/* CTA Buttons */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="flex flex-col sm:flex-row gap-4 max-w-md"
-          >
-            <Link 
-              href="/custom-builder" 
-              className="px-8 py-4 rounded-2xl bg-linear-to-r from-neon-pink to-neon-blue text-sm font-bold text-white text-center hover:scale-[1.02] transition-all shadow-lg shadow-neon-pink/10 flex items-center justify-center gap-2 group cursor-pointer"
-            >
-              Custom Neon Builder <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-            <Link 
-              href="/shop" 
-              className="px-8 py-4 rounded-2xl bg-neutral-900 border border-white/10 hover:bg-neutral-800 text-sm font-semibold text-neutral-300 text-center hover:text-white transition-colors cursor-pointer"
-            >
-              Browse Shop Catalog
-            </Link>
-          </motion.div>
-
-          {/* Statistics small layout */}
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="grid grid-cols-3 gap-6 pt-6 border-t border-white/5 max-w-lg"
-          >
-            <div>
-              <div className="text-xl sm:text-2xl font-black text-white">50k+</div>
-              <div className="text-[10px] text-neutral-500 font-bold uppercase tracking-wider mt-1">Hours Lifespan</div>
-            </div>
-            <div>
-              <div className="text-xl sm:text-2xl font-black text-neon-blue">2-Year</div>
-              <div className="text-[10px] text-neutral-500 font-bold uppercase tracking-wider mt-1">Full Warranty</div>
-            </div>
-            <div>
-              <div className="text-xl sm:text-2xl font-black text-neon-pink">12-Hour</div>
-              <div className="text-[10px] text-neutral-500 font-bold uppercase tracking-wider mt-1">Design Mockup</div>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Right Column: Parallax Glowing Neon Frame Showcase (5 Columns) */}
-        <div className="lg:col-span-5 relative flex items-center justify-center">
-          <motion.div 
-            style={{ 
-              transform: `translate(${mousePos.x}px, ${mousePos.y}px)`,
-              transition: "transform 0.1s ease-out" 
-            }}
-            className="w-full aspect-square max-w-[380px] rounded-3xl bg-[#09090b] border border-white/10 p-8 shadow-2xl relative flex items-center justify-center overflow-hidden"
-          >
-            {/* Grid pattern */}
-            <div className="absolute inset-0 bg-grid-lines opacity-20 pointer-events-none" />
-
-            {/* Glowing sign display */}
-            <div className="text-center space-y-4">
-              <span className="font-sacramento text-4xl sm:text-5xl text-neon-pink font-bold block select-none" style={{ textShadow: "0 0 10px #ff0066, 0 0 20px #ff0066" }}>
-                vj neon
-              </span>
-              <span className="font-tilt-neon text-2xl sm:text-3xl text-neon-blue font-bold block select-none uppercase tracking-widest" style={{ textShadow: "0 0 10px #0080ff, 0 0 20px #0080ff" }}>
-                Glow
-              </span>
-            </div>
-
-            {/* Dynamic floating circles decoration */}
-            <div className="absolute top-6 left-6 w-8 h-8 rounded-full bg-neon-pink/15 blur-md animate-float" />
-            <div className="absolute bottom-6 right-6 w-12 h-12 rounded-full bg-neon-blue/15 blur-md animate-float" style={{ animationDelay: '2s' }} />
-          </motion.div>
-        </div>
-      </section>
-
-      {/* 2. CREATIVE CORNER CTA (CUSTOM vs UPLOAD) */}
-      <section className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-2 gap-8">
-        
-        {/* Custom Builder Promo Card */}
-        <div className="relative rounded-3xl bg-neutral-900/40 border border-white/5 p-8 overflow-hidden group hover:border-neon-blue/30 transition-colors">
-          <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-neon-blue/10 rounded-full blur-3xl pointer-events-none group-hover:bg-neon-blue/20 transition-colors" />
-          <div className="space-y-4">
-            <div className="inline-flex p-3 rounded-2xl bg-neon-blue/10 border border-neon-blue/20 text-neon-blue">
-              <PenTool className="h-6 w-6" />
-            </div>
-            <h3 className="text-xl font-bold text-white">Custom Neon Builder</h3>
-            <p className="text-xs text-neutral-400 leading-relaxed max-w-sm">
-              Type your own quotes, choose from 15+ fonts, select a custom glow color, and visually preview the sign against multiple walls instantly.
-            </p>
-            <Link 
-              href="/custom-builder" 
-              className="inline-flex items-center gap-1 text-xs font-bold text-neon-blue hover:underline pt-2 cursor-pointer"
-            >
-              Start Designing Now <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
-          </div>
-        </div>
-
-        {/* Logo Art Upload Promo Card */}
-        <div className="relative rounded-3xl bg-neutral-900/40 border border-white/5 p-8 overflow-hidden group hover:border-neon-pink/30 transition-colors">
-          <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-neon-pink/10 rounded-full blur-3xl pointer-events-none group-hover:bg-neon-pink/20 transition-colors" />
-          <div className="space-y-4">
-            <div className="inline-flex p-3 rounded-2xl bg-neon-pink/10 border border-neon-pink/20 text-neon-pink">
-              <UploadCloud className="h-6 w-6" />
-            </div>
-            <h3 className="text-xl font-bold text-white">Upload Brand Artwork</h3>
-            <p className="text-xs text-neutral-400 leading-relaxed max-w-sm">
-              Do you have a complex logo, custom graphic, or signature file? Drag and drop your file, and get a free mockup from our designers.
-            </p>
-            <Link 
-              href="/upload-design" 
-              className="inline-flex items-center gap-1 text-xs font-bold text-neon-pink hover:underline pt-2 cursor-pointer"
-            >
-              Upload Your Logo File <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
-          </div>
-        </div>
-
-      </section>
-
-      {/* 3. POPULAR CATEGORIES */}
-      <section className="max-w-7xl mx-auto px-6 py-12 space-y-8">
-        <div className="text-center md:text-left">
-          <h2 className="text-2xl sm:text-4xl font-black">Popular Preset Collections</h2>
-          <p className="text-xs text-neutral-500 mt-2 font-medium">Browse our most popular pre-configured LED neon signage collections.</p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            { name: "Wedding Collection", code: "Wedding%20Collection", desc: "Elegant handwriting and romantic script text", emoji: "💍", color: "neon-pink" },
-            { name: "Business Signs", code: "Business%20Signs", desc: "Storefront branding, lobbies, and workspace accents", emoji: "💼", color: "neon-blue" },
-            { name: "Home Decor", code: "Home%20Decor", desc: "Vibrant custom statements for bedrooms and living spaces", emoji: "🏡", color: "neon-pink" },
-            { name: "Channel Letters", code: "Channel%20Letters", desc: "Commercial three-dimensional storefront facings", emoji: "🏢", color: "neon-blue" }
-          ].map((cat) => (
-            <Link 
-              key={cat.name} 
-              href={`/shop?category=${cat.code}`}
-              className="group relative rounded-2xl bg-[#09090b] border border-white/5 p-6 hover:scale-[1.02] hover:border-white/10 transition-all flex flex-col justify-between aspect-square cursor-pointer"
-            >
-              {/* Backglow on hover */}
-              <div className={`absolute inset-0 bg-radial-gradient from-${cat.color}/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl`} />
-
-              <span className="text-4xl block select-none">{cat.emoji}</span>
-              <div className="space-y-1 mt-6 relative z-10">
-                <h3 className="text-base font-bold text-white group-hover:text-neon-blue transition-colors flex items-center gap-1">
-                  {cat.name} <ArrowRight className="h-4 w-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
-                </h3>
-                <p className="text-[11px] text-neutral-500 leading-relaxed font-semibold">{cat.desc}</p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
+                  <Link 
+                    href={heroSlides[currentSlide].link}
+                    className="px-8 py-3 bg-neutral-900 hover:bg-neutral-800 rounded-full text-xs font-bold text-white shadow-lg cursor-pointer transition-all hover:scale-105"
+                  >
+                    {heroSlides[currentSlide].primaryBtn}
+                  </Link>
+                  <Link 
+                    href="/custom-builder"
+                    className="px-8 py-3 bg-white hover:bg-neutral-50 rounded-full text-xs font-bold text-neutral-800 border border-neutral-200 shadow-sm cursor-pointer transition-all flex items-center justify-center gap-1.5"
+                  >
+                    <span>Design Your Own</span> <ArrowRight className="h-4.5 w-4.5 text-neon-blue" />
+                  </Link>
+                </div>
               </div>
+
+              {/* Graphical Sign Backdrop Preview */}
+              <div className="hidden lg:flex items-center justify-center relative">
+                <div className="relative w-[400px] h-[300px] rounded-3xl bg-neutral-950/90 border border-white/10 shadow-2xl p-8 flex items-center justify-center overflow-hidden">
+                  <div className="absolute inset-0 bg-radial-gradient(circle, rgba(255,0,102,0.15) 0%, transparent 60%)" />
+                  {/* Glowing text vector */}
+                  <h3 className={`text-4xl font-pacifico text-center ${
+                    currentSlide === 2 ? 'neon-text-blue' : 'neon-text-pink'
+                  }`}>
+                    {currentSlide === 0 && "VJ Metal Art"}
+                    {currentSlide === 1 && "Sarah & Mark"}
+                    {currentSlide === 2 && "The Lobby"}
+                  </h3>
+                  <div className="absolute bottom-4 text-[9px] uppercase font-bold text-neutral-500 tracking-wider">
+                    VJneon Custom Sign Showcase
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Carousel indicators */}
+        <div className="absolute bottom-6 flex gap-2.5 z-20">
+          {heroSlides.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentSlide(i)}
+              className={`h-2.5 rounded-full transition-all cursor-pointer ${
+                currentSlide === i ? "w-8 bg-neutral-800" : "w-2.5 bg-neutral-300"
+              }`}
+              aria-label={`Slide ${i + 1}`}
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* 2. KEY SELLING POINTS STRIP */}
+      <section className="w-full bg-neutral-50 py-6 border-b border-neutral-100">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center md:text-left">
+          <div className="flex flex-col sm:flex-row items-center gap-3 justify-center md:justify-start">
+            <div className="p-2.5 rounded-xl bg-neon-pink/10 border border-neon-pink/15 text-neon-pink">
+              <ShieldCheck className="h-5 w-5" />
+            </div>
+            <div>
+              <h4 className="text-xs font-bold text-neutral-800">3-Year Complete Warranty</h4>
+              <p className="text-[10px] text-neutral-500 mt-0.5">Electrical & LED cover</p>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center gap-3 justify-center md:justify-start">
+            <div className="p-2.5 rounded-xl bg-neon-blue/10 border border-neon-blue/15 text-neon-blue">
+              <Truck className="h-5 w-5" />
+            </div>
+            <div>
+              <h4 className="text-xs font-bold text-neutral-800">Free Insured Global Delivery</h4>
+              <p className="text-[10px] text-neutral-500 mt-0.5">Free on orders above $250</p>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center gap-3 justify-center md:justify-start">
+            <div className="p-2.5 rounded-xl bg-neutral-100 border border-neutral-200 text-neutral-600">
+              <RotateCcw className="h-5 w-5" />
+            </div>
+            <div>
+              <h4 className="text-xs font-bold text-neutral-800">100% Transit Insured</h4>
+              <p className="text-[10px] text-neutral-500 mt-0.5">Broken? Free replacement</p>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center gap-3 justify-center md:justify-start">
+            <div className="p-2.5 rounded-xl bg-green-50 border border-green-150 text-green-600">
+              <Sparkles className="h-5 w-5" />
+            </div>
+            <div>
+              <h4 className="text-xs font-bold text-neutral-800">Child-Safe Low Voltage</h4>
+              <p className="text-[10px] text-neutral-500 mt-0.5">12V safety, low heat</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. CATEGORY CIRCLES GRID */}
+      <section className="max-w-7xl mx-auto px-6 py-16 text-center">
+        <h2 className="text-2xl sm:text-3xl font-black text-neutral-900 mb-2">Shop Our Collections</h2>
+        <p className="text-xs text-neutral-500 font-medium mb-10">Handcrafted illuminated art tailored to your vibe</p>
+        
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 justify-center">
+          {categories.map((cat, idx) => (
+            <Link key={idx} href={cat.link} className="group flex flex-col items-center gap-3">
+              <div className="relative w-28 h-28 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-4xl shadow-sm transition-transform duration-300 group-hover:scale-105 group-hover:border-neon-pink/30 group-hover:shadow-md">
+                <span>{cat.emoji}</span>
+                <span className="absolute -top-1 -right-1 px-2 py-0.5 rounded-full bg-linear-to-r from-neon-pink to-neon-blue text-[8px] font-bold text-white uppercase scale-90">
+                  {cat.tag}
+                </span>
+              </div>
+              <span className="text-xs font-bold text-neutral-700 group-hover:text-neon-pink transition-colors">
+                {cat.name}
+              </span>
             </Link>
           ))}
         </div>
       </section>
 
-      {/* 4. THE INTERACTIVE EXPERIENCE CENTER */}
-      <section className="max-w-7xl mx-auto px-6 py-12 space-y-8">
-        <div className="text-center max-w-xl mx-auto space-y-3">
-          <h2 className="text-2xl sm:text-4xl font-black">Experience Center</h2>
-          <p className="text-xs text-neutral-500 leading-relaxed font-semibold">
-            Test how neon lights reflect against real-world background rooms dynamically before ordering. Type your vibe below.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center rounded-3xl bg-[#09090c] border border-white/5 p-6 md:p-10 relative overflow-hidden">
-          
-          {/* Left Panel: Preview Room (7 Columns) */}
-          <div className="lg:col-span-7 aspect-[4/3] rounded-2xl relative overflow-hidden border border-white/5 flex items-center justify-center">
-            
-            {/* Ambient reflection */}
-            <div 
-              style={{
-                background: `radial-gradient(circle, ${expColor.glow} 0%, transparent 60%)`,
-                opacity: 0.55
-              }}
-              className="absolute inset-0 pointer-events-none transition-all duration-300"
-            />
-
-            {/* Room Background simulators */}
-            {expBackdrop === "bedroom" && (
-              <div className="absolute inset-0 bg-[#121215] flex items-center justify-center">
-                {/* CSS Headboard simulation */}
-                <div className="absolute bottom-0 w-full h-[35%] bg-neutral-900 border-t border-white/5 flex justify-around p-4">
-                  <div className="w-10 h-10 rounded-full bg-neutral-800" />
-                  <div className="w-10 h-10 rounded-full bg-neutral-800" />
-                </div>
-                {/* CSS bed pillow simulation */}
-                <div className="absolute bottom-[35%] w-[80%] h-8 bg-neutral-800 rounded-t-xl" />
-              </div>
-            )}
-
-            {expBackdrop === "bar" && (
-              <div className="absolute inset-0 bg-[#0a0a0c] flex items-center justify-center">
-                {/* Bar shelving simulation */}
-                <div className="absolute inset-x-0 top-[20%] h-0.5 bg-neutral-800" />
-                <div className="absolute inset-x-0 top-[50%] h-0.5 bg-neutral-800" />
-                <div className="absolute top-[8%] left-[20%] w-6 h-10 bg-amber-900/40 border border-amber-900/60 rounded-t-sm" />
-                <div className="absolute top-[38%] right-[30%] w-8 h-12 bg-emerald-950/40 border border-emerald-900/60 rounded-t-sm" />
-              </div>
-            )}
-
-            {expBackdrop === "wedding" && (
-              <div className="absolute inset-0 bg-[#1a1414] flex items-center justify-center">
-                {/* Floral wedding arch simulation */}
-                <div className="absolute w-[70%] aspect-square rounded-full border-[8px] border-amber-900/20 top-6" />
-                <div className="absolute top-12 left-1/4 w-8 h-8 rounded-full bg-[#180f12] border border-neutral-800" />
-                <div className="absolute top-20 right-1/4 w-10 h-10 rounded-full bg-[#180f12] border border-neutral-800" />
-              </div>
-            )}
-
-            {/* The Floating Neon Sign */}
-            <div className="relative select-none text-center z-10">
-              <span 
-                style={{
-                  color: expColor.hex,
-                  textShadow: `0 0 5px #fff, 0 0 10px #fff, 0 0 25px ${expColor.hex}, 0 0 45px ${expColor.hex}`
-                }}
-                className="font-pacifico text-5xl md:text-7xl font-bold select-none block tracking-wide"
-              >
-                {expText || "Glow"}
-              </span>
+      {/* 4. BRAND LOGO MARQUEE TICKER */}
+      <section className="w-full py-8 border-y border-neutral-100 bg-neutral-50/50 overflow-hidden relative">
+        <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent z-10" />
+        <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white to-transparent z-10" />
+        <div className="flex gap-16 whitespace-nowrap animate-marquee select-none justify-around">
+          {brandLogos.concat(brandLogos).map((logo, idx) => (
+            <div key={idx} className="flex items-center gap-1.5 text-neutral-400 font-bold text-xs tracking-widest hover:text-neutral-700 transition-colors">
+              <Sparkles className="h-3.5 w-3.5 text-neon-blue/40" />
+              <span>{logo.text}</span>
             </div>
-
-            {/* Overlay shadows */}
-            <div className="absolute inset-0 bg-black/35 pointer-events-none" />
-          </div>
-
-          {/* Right Panel: Controls (5 Columns) */}
-          <div className="lg:col-span-5 space-y-6">
-            
-            {/* Input message */}
-            <div className="space-y-1.5">
-              <label className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider">Type Your Word</label>
-              <input 
-                type="text" 
-                maxLength={12}
-                value={expText}
-                onChange={(e) => setExpText(e.target.value)}
-                className="w-full bg-neutral-900 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:border-neon-blue outline-hidden transition-colors font-semibold"
-              />
-            </div>
-
-            {/* Color select row */}
-            <div className="space-y-1.5">
-              <label className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider">Choose Neon Glow</label>
-              <div className="flex gap-2">
-                {[
-                  { name: "VJ Pink", hex: "#ff0066", glow: "rgba(255,0,102,0.8)" },
-                  { name: "VJ Blue", hex: "#0080ff", glow: "rgba(0,128,255,0.8)" },
-                  { name: "Golden Yellow", hex: "#ffb700", glow: "rgba(255,183,0,0.8)" }
-                ].map((col) => (
-                  <button
-                    key={col.name}
-                    onClick={() => setExpColor(col)}
-                    style={{ borderColor: expColor.name === col.name ? col.hex : "rgba(255,255,255,0.05)" }}
-                    className="flex-1 py-2 rounded-xl bg-neutral-900 text-[10px] font-bold text-white border flex items-center justify-center gap-1.5 cursor-pointer hover:bg-neutral-800 transition-colors"
-                  >
-                    <span style={{ backgroundColor: col.hex }} className="w-2.5 h-2.5 rounded-full" />
-                    {col.name}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Backdrop select row */}
-            <div className="space-y-1.5">
-              <label className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider">Select Room Backdrop</label>
-              <div className="grid grid-cols-3 gap-2">
-                {[
-                  { id: "bedroom", label: "🏡 Bedroom" },
-                  { id: "bar", label: "🍹 Bar Wall" },
-                  { id: "wedding", label: "💍 Wedding Arch" }
-                ].map((room) => (
-                  <button
-                    key={room.id}
-                    onClick={() => setExpBackdrop(room.id)}
-                    className={`py-2 rounded-xl text-[10px] font-bold border transition-colors cursor-pointer ${
-                      expBackdrop === room.id 
-                        ? "bg-white/10 border-white/20 text-white" 
-                        : "bg-neutral-900 border-white/5 text-neutral-500 hover:text-neutral-300"
-                    }`}
-                  >
-                    {room.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="border-t border-white/5 pt-4 space-y-4">
-              <p className="text-xs text-neutral-400 leading-relaxed font-semibold">
-                * This is a quick demo. Enter our custom builder for full text sizes, letter spacing adjustments, 15+ cursive fonts, backboard outlines, and controller accessories.
-              </p>
-              <Link 
-                href={`/custom-builder?text=${encodeURIComponent(expText)}&color=${encodeURIComponent(expColor.name)}`}
-                className="w-full py-3 bg-linear-to-r from-neon-pink to-neon-blue rounded-xl text-xs font-bold text-white flex items-center justify-center gap-1 hover:opacity-90 transition-opacity cursor-pointer shadow-lg"
-              >
-                Go to Full Neon Builder <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
-            </div>
-
-          </div>
-
+          ))}
         </div>
       </section>
 
-      {/* 5. FEATURED PRESET PRODUCTS SECTION */}
-      <section className="max-w-7xl mx-auto px-6 py-12 space-y-8">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="text-center sm:text-left">
-            <h2 className="text-2xl sm:text-4xl font-black">Featured Preset Signs</h2>
-            <p className="text-xs text-neutral-500 mt-2 font-medium">Bestselling LED neon signs hand-crafted by design experts.</p>
+      {/* 5. BEST SELLERS GRID WITH CATEGORY TABS */}
+      <section className="max-w-7xl mx-auto px-6 py-16">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-10">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-black text-neutral-900">Our Best Sellers</h2>
+            <p className="text-xs text-neutral-500 font-medium mt-1">Illumination masterpieces our customers love most</p>
           </div>
-          <Link href="/shop" className="text-xs font-bold text-neon-blue hover:underline flex items-center gap-1.5 cursor-pointer">
-            Browse Full Shop Catalog <ChevronDown className="h-4 w-4 -rotate-90" />
-          </Link>
+          {/* Tab buttons */}
+          <div className="flex flex-wrap gap-2">
+            {["All Sellers", "Wedding Collection", "Home Decor", "Business Signs"].map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                  activeTab === tab 
+                    ? "bg-neutral-900 text-white shadow-sm" 
+                    : "bg-neutral-50 text-neutral-500 border border-neutral-200 hover:bg-neutral-100"
+                }`}
+              >
+                {tab === "All Sellers" ? "All Sellers" : tab.replace(" Collection", "")}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Product Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products.slice(0, 3).map((product) => {
-            const isWishlisted = hasItem(product.id);
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {getFilteredProducts().map((product) => {
+            const hasWishlist = hasItem(product.id);
             return (
               <div 
-                key={product.id}
-                className="group relative rounded-2xl bg-[#09090b] border border-white/5 overflow-hidden flex flex-col justify-between aspect-[3/4] hover:border-white/10 transition-all hover:scale-[1.01]"
+                key={product.id} 
+                className="group relative rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden"
               >
-                
-                {/* Photo backdrop */}
-                <div className="w-full aspect-square bg-neutral-900 relative flex items-center justify-center overflow-hidden border-b border-white/5">
-                  <div className="absolute inset-0 bg-radial-gradient from-white/2 to-transparent pointer-events-none" />
-                  
-                  {/* Decorative glowing neon representation */}
-                  <span 
-                    style={{
-                      color: product.colors[0]?.hex || "#ffffff",
-                      textShadow: `0 0 5px #fff, 0 0 15px ${product.colors[0]?.hex || "#0080ff"}`
-                    }}
-                    className="font-pacifico text-3xl font-bold select-none group-hover:scale-105 transition-transform duration-300"
-                  >
-                    {product.name.replace("Sign", "").replace("LED", "").replace("Glow", "")}
+                {/* Sale and Discount Badges */}
+                <div className="absolute top-4 left-4 z-10 flex flex-col gap-1.5">
+                  <span className="px-2 py-0.5 rounded-md bg-neon-pink text-white text-[9px] font-extrabold uppercase">
+                    Sale
                   </span>
-
-                  {/* Wishlist toggle button */}
-                  <button 
-                    onClick={() => toggleItem(product.id)}
-                    className={`absolute top-4 right-4 p-2 rounded-lg border backdrop-blur-md cursor-pointer transition-colors ${
-                      isWishlisted 
-                        ? "bg-neon-pink/20 border-neon-pink/30 text-neon-pink" 
-                        : "bg-black/40 border-white/10 text-neutral-400 hover:text-white"
-                    }`}
-                    aria-label="Toggle Wishlist"
-                  >
-                    <Star className="h-4 w-4" fill={isWishlisted ? "#ff0066" : "none"} />
-                  </button>
-
-                  {/* Category Badge */}
-                  <span className="absolute bottom-4 left-4 px-2 py-0.5 rounded-md bg-black/60 border border-white/5 text-[9px] font-bold text-neutral-400 uppercase tracking-wider">
-                    {product.category}
+                  <span className="px-2 py-0.5 rounded-md bg-neon-blue text-white text-[9px] font-extrabold uppercase">
+                    -15%
                   </span>
                 </div>
 
-                {/* Details bottom pane */}
-                <div className="p-5 flex-1 flex flex-col justify-between gap-4">
-                  <div className="space-y-1.5">
-                    <div className="flex items-center justify-between">
-                      <Link href={`/shop/${product.slug}`} className="text-sm font-bold text-white hover:text-neon-blue transition-colors truncate">
-                        {product.name}
-                      </Link>
-                      <div className="flex items-center gap-1 font-semibold text-neutral-400 text-xs flex-shrink-0">
-                        <Star className="h-3.5 w-3.5 fill-amber-500 text-amber-500" />
-                        <span>{product.rating}</span>
-                      </div>
+                {/* Wishlist toggle */}
+                <button 
+                  onClick={() => toggleItem(product.id)}
+                  className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/80 backdrop-blur-xs border border-neutral-200 text-neutral-400 hover:text-neon-pink transition-colors cursor-pointer"
+                  aria-label="Add to wishlist"
+                >
+                  <Heart className={`h-4 w-4 ${hasWishlist ? "fill-neon-pink text-neon-pink" : ""}`} />
+                </button>
+
+                {/* Main Product graphic preview */}
+                <Link href={`/shop/${product.slug}`} className="block relative aspect-square bg-neutral-950 rounded-xl overflow-hidden mb-4 border border-neutral-100">
+                  <div className="absolute inset-0 bg-radial-gradient(circle, rgba(255,0,102,0.1) 0%, transparent 70%) group-hover:bg-radial-gradient(circle, rgba(255,0,102,0.18) 0%, transparent 70%) transition-colors" />
+                  <div className="absolute inset-0 flex items-center justify-center p-6 text-center select-none">
+                    <span className="text-xl sm:text-2xl font-pacifico neon-text-pink leading-tight transition-transform duration-300 group-hover:scale-105">
+                      {product.name}
+                    </span>
+                  </div>
+                </Link>
+
+                {/* Details */}
+                <div className="space-y-2.5">
+                  <span className="text-[10px] uppercase font-bold text-neutral-400">{product.category}</span>
+                  <Link href={`/shop/${product.slug}`}>
+                    <h4 className="text-sm font-bold text-neutral-800 hover:text-neon-blue transition-colors line-clamp-1">{product.name}</h4>
+                  </Link>
+
+                  {/* Rating */}
+                  <div className="flex items-center gap-1">
+                    <div className="flex text-amber-400">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="h-3 w-3 fill-amber-400" />
+                      ))}
                     </div>
-                    <p className="text-[10px] text-neutral-500 leading-relaxed font-semibold line-clamp-2">
-                      {product.description}
-                    </p>
+                    <span className="text-[10px] text-neutral-500 font-semibold">({product.reviewCount} reviews)</span>
                   </div>
 
-                  <div className="flex items-center justify-between pt-2 border-t border-white/5">
-                    <div>
-                      <span className="text-[9px] font-bold text-neutral-500 uppercase tracking-wider block">Starts at</span>
-                      <span className="text-base font-black text-white">{formatPrice(product.price)}</span>
+                  {/* Pricing and Action CTAs */}
+                  <div className="flex items-center justify-between border-t border-neutral-100 pt-3 mt-1">
+                    <div className="flex flex-col">
+                      <span className="text-[9px] uppercase font-bold text-neutral-400 line-through">{formatPrice(product.price * 1.15)}</span>
+                      <span className="text-sm font-black text-neutral-900">{formatPrice(product.price)}</span>
                     </div>
                     
-                    <Link 
-                      href={`/shop/${product.slug}`} 
-                      className="px-4 py-2 rounded-xl bg-neutral-900 border border-white/10 hover:border-white/20 text-xs font-bold text-neutral-200 hover:text-white transition-all cursor-pointer"
-                    >
-                      Configure
-                    </Link>
+                    <div className="flex gap-1.5">
+                      <button 
+                        onClick={() => handleQuickAdd(product)}
+                        className="p-2 rounded-lg bg-neutral-100 hover:bg-neon-blue hover:text-white text-neutral-700 transition-all cursor-pointer flex items-center justify-center"
+                        title="Quick Add to Cart"
+                      >
+                        <ShoppingCart className="h-4 w-4" />
+                      </button>
+                      <Link 
+                        href={`/shop/${product.slug}`}
+                        className="px-3 py-1.5 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-[10px] font-bold text-white transition-all flex items-center justify-center cursor-pointer"
+                      >
+                        Customize
+                      </Link>
+                    </div>
                   </div>
                 </div>
 
@@ -493,57 +424,224 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 6. TRUST & REVIEWS BANNER */}
-      <section className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-        
-        {/* Why VJneon Trust banner (5 Columns) */}
-        <div className="lg:col-span-5 rounded-3xl bg-linear-to-r from-neon-pink/5 to-neon-blue/5 border border-white/5 p-8 flex flex-col justify-between gap-6 relative overflow-hidden">
-          <div className="space-y-4 relative z-10">
-            <span className="text-[10px] uppercase font-bold text-neon-blue tracking-widest block">VJ Craftsmanship</span>
-            <h2 className="text-2xl sm:text-3xl font-black">Why Brands Trust VJneon</h2>
-            <p className="text-xs text-neutral-400 leading-relaxed font-medium">
-              We engineer luxury LED signage with pixel-perfect laser cutting, certified energy-efficient electrical cores, and ultra-durable silicone housings. No hot spots, no glass fractures, just a flawless glow.
+      {/* 6. OFFLINE EXPERIENCE CENTER / SHOWROOM SHOWCASE */}
+      <section className="w-full bg-neutral-50 py-16 border-y border-neutral-100">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Showroom Details & mock map embed */}
+          <div className="space-y-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-linear-to-r from-neon-pink/5 to-neon-blue/5 border border-neutral-200 text-xs font-bold text-neutral-600">
+              <MapPin className="h-3.5 w-3.5 text-neon-blue animate-bounce" /> 
+              <span>VJneon Flagship Showroom</span>
+            </div>
+            
+            <h2 className="text-2xl sm:text-4xl font-black text-neutral-900 leading-tight">
+              Visit Our Experience Center & Showroom
+            </h2>
+            
+            <p className="text-xs text-neutral-600 leading-relaxed max-w-lg">
+              Want to see our custom LED craftsmanship in person? Experience the dynamic ambient lighting, view all 12 neon color options, test remote controllers, and browse our acrylic cutout designs.
             </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-medium text-neutral-700 pt-2">
+              <div className="flex items-center gap-3 p-3 rounded-xl bg-white border border-neutral-200">
+                <MapPin className="h-4 w-4 text-neon-pink flex-shrink-0" />
+                <div>
+                  <h5 className="font-bold text-neutral-800">NYC Headquarters</h5>
+                  <p className="text-[10px] text-neutral-500 mt-0.5">382 Broadway, New York, NY</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 p-3 rounded-xl bg-white border border-neutral-200">
+                <Phone className="h-4 w-4 text-neon-blue flex-shrink-0" />
+                <div>
+                  <h5 className="font-bold text-neutral-800">Book Design Audits</h5>
+                  <p className="text-[10px] text-neon-500 mt-0.5">+1 (800) 555-NEON</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Mock Maps embed widget */}
+            <div className="relative w-full h-[180px] rounded-2xl overflow-hidden border border-neutral-200 shadow-xs bg-neutral-200">
+              <div className="absolute inset-0 bg-neutral-100 flex flex-col items-center justify-center p-4 text-center">
+                <MapPin className="h-8 w-8 text-neon-pink mb-2 animate-bounce" />
+                <span className="text-xs font-bold text-neutral-800">New York Showroom Map Location</span>
+                <span className="text-[10px] text-neutral-500 mt-0.5">Interactive GPS direction mapping widget</span>
+              </div>
+            </div>
           </div>
 
-          <div className="space-y-3 relative z-10">
-            <div className="flex items-center gap-3 text-xs text-neutral-300 font-semibold">
-              <ShieldCheck className="h-4.5 w-4.5 text-neon-pink" /> 2-Year comprehensive warranty sheet
+          {/* Showroom visual gallery preview */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="relative h-[180px] sm:h-[220px] rounded-2xl bg-neutral-950 border border-neutral-200 overflow-hidden flex items-center justify-center shadow-md group/show">
+              <div className="absolute inset-0 bg-radial-gradient(circle, rgba(0,128,255,0.15) 0%, transparent 60%)" />
+              <span className="font-pacifico text-2xl neon-text-blue transition-transform group-hover/show:scale-110">Open Late</span>
+              <div className="absolute bottom-3 left-3 px-2 py-0.5 bg-black/60 backdrop-blur-xs rounded-md text-[8px] font-bold text-white uppercase">
+                Showroom Lobby
+              </div>
             </div>
-            <div className="flex items-center gap-3 text-xs text-neutral-300 font-semibold">
-              <Truck className="h-4.5 w-4.5 text-neon-blue" /> Free global door-to-door delivery
+            
+            <div className="relative h-[180px] sm:h-[220px] rounded-2xl bg-neutral-950 border border-neutral-200 overflow-hidden flex items-center justify-center shadow-md group/show">
+              <div className="absolute inset-0 bg-radial-gradient(circle, rgba(255,0,102,0.15) 0%, transparent 60%)" />
+              <span className="font-pacifico text-2xl neon-text-pink transition-transform group-hover/show:scale-110">Cheers 🥂</span>
+              <div className="absolute bottom-3 left-3 px-2 py-0.5 bg-black/60 backdrop-blur-xs rounded-md text-[8px] font-bold text-white uppercase">
+                Wedding Backboard
+              </div>
             </div>
-            <div className="flex items-center gap-3 text-xs text-neutral-300 font-semibold">
-              <Clock className="h-4.5 w-4.5 text-neutral-400" /> Rush order dispatch within 4-6 business days
+
+            <div className="col-span-2 relative h-[140px] rounded-2xl bg-linear-to-r from-neon-pink/10 to-neon-blue/10 border border-neutral-200 p-6 flex flex-col justify-between overflow-hidden">
+              <div className="space-y-1">
+                <h4 className="text-sm font-bold text-neutral-800">Showroom Exclusive discounts</h4>
+                <p className="text-xs text-neutral-500 leading-relaxed">Book a consultation call in NYC to receive **15% off coupon** and complimentary dimmer upgrades.</p>
+              </div>
+              <Link href="/contact" className="text-xs font-bold text-neon-blue hover:underline flex items-center gap-1">
+                Schedule Consultation Call →
+              </Link>
             </div>
           </div>
         </div>
+      </section>
 
-        {/* Customer Testimonials Carousel grid (7 Columns) */}
-        <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-4">
-          {testimonials.map((test) => (
-            <div 
-              key={test.id}
-              className="p-6 rounded-2xl bg-neutral-900/40 border border-white/5 flex flex-col justify-between gap-4"
-            >
+      {/* 7. WHY CHOOSE VJNEON GRID */}
+      <section className="max-w-7xl mx-auto px-6 py-16">
+        <div className="text-center max-w-xl mx-auto mb-12">
+          <h2 className="text-2xl sm:text-3xl font-black text-neutral-900">Why Choose VJneon?</h2>
+          <p className="text-xs text-neutral-500 font-medium mt-1">We construct the highest-grade illuminated art on the market</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="p-6 rounded-2xl border border-neutral-200 bg-white shadow-xs space-y-4 hover:shadow-md transition-shadow">
+            <div className="p-3 rounded-xl bg-neon-pink/10 border border-neon-pink/20 text-neon-pink w-fit">
+              <Sparkles className="h-6 w-6" />
+            </div>
+            <h4 className="text-base font-bold text-neutral-800">Ultra-High Density Flex-LED</h4>
+            <p className="text-xs text-neutral-500 leading-relaxed">
+              We pack 120 premium LEDs per meter to ensure smooth, uniform illumination with absolutely zero dark gaps or dot-spots.
+            </p>
+          </div>
+
+          <div className="p-6 rounded-2xl border border-neutral-200 bg-white shadow-xs space-y-4 hover:shadow-md transition-shadow">
+            <div className="p-3 rounded-xl bg-neon-blue/10 border border-neon-blue/20 text-neon-blue w-fit">
+              <ShieldCheck className="h-6 w-6" />
+            </div>
+            <h4 className="text-base font-bold text-neutral-800">Insured Damage Protection</h4>
+            <p className="text-xs text-neutral-500 leading-relaxed">
+              Every package is shipped with 100% replacement insurance. If Courier damages it in transit, we manufacture and ship a new sign free.
+            </p>
+          </div>
+
+          <div className="p-6 rounded-2xl border border-neutral-200 bg-white shadow-xs space-y-4 hover:shadow-md transition-shadow">
+            <div className="p-3 rounded-xl bg-neutral-100 border border-neutral-200 text-neutral-600 w-fit">
+              <RotateCcw className="h-6 w-6" />
+            </div>
+            <h4 className="text-base font-bold text-neutral-800">Dimmer & Controller Included</h4>
+            <p className="text-xs text-neutral-500 leading-relaxed">
+              No extra charges for dimming. Every sign includes a remote controller that lets you adjust brightness from 10% to 100%.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 8. YOUR IMAGINATION USER WALL GALLERY */}
+      <section className="w-full bg-neutral-50 py-16 border-y border-neutral-100 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 text-center mb-10">
+          <h2 className="text-2xl sm:text-3xl font-black text-neutral-900">Your Imagination, Our Creation</h2>
+          <p className="text-xs text-neutral-500 font-medium mt-1">Real installations lighting up storefronts, weddings, and homes</p>
+        </div>
+
+        {/* Gallery grid of mock signs */}
+        <div className="flex gap-6 justify-center flex-wrap px-6">
+          <div className="relative w-[220px] h-[280px] rounded-2xl bg-neutral-950 border border-neutral-200 overflow-hidden flex items-center justify-center group/gal">
+            <div className="absolute inset-0 bg-radial-gradient(circle, rgba(255,0,102,0.15) 0%, transparent 60%)" />
+            <span className="font-pacifico text-xl neon-text-pink transition-transform group-hover/gal:scale-105">Sweet Dreams</span>
+            <div className="absolute bottom-3 left-3 right-3 text-[10px] text-neutral-400 font-bold bg-black/60 py-1 px-2 rounded-md text-center">
+              Bedroom Neon Sign
+            </div>
+          </div>
+
+          <div className="relative w-[220px] h-[280px] rounded-2xl bg-neutral-950 border border-neutral-200 overflow-hidden flex items-center justify-center group/gal">
+            <div className="absolute inset-0 bg-radial-gradient(circle, rgba(0,128,255,0.15) 0%, transparent 60%)" />
+            <span className="font-pacifico text-xl neon-text-blue transition-transform group-hover/gal:scale-105">The Office</span>
+            <div className="absolute bottom-3 left-3 right-3 text-[10px] text-neutral-400 font-bold bg-black/60 py-1 px-2 rounded-md text-center">
+              Workspace Corporate logo
+            </div>
+          </div>
+
+          <div className="relative w-[220px] h-[280px] rounded-2xl bg-neutral-950 border border-neutral-200 overflow-hidden flex items-center justify-center group/gal">
+            <div className="absolute inset-0 bg-radial-gradient(circle, rgba(255,183,0,0.15) 0%, transparent 60%)" />
+            <span className="font-pacifico text-xl text-amber-400 neon-text-pink transition-transform group-hover/gal:scale-105">Better Together</span>
+            <div className="absolute bottom-3 left-3 right-3 text-[10px] text-neutral-400 font-bold bg-black/60 py-1 px-2 rounded-md text-center">
+              Wedding Reception Backdrop
+            </div>
+          </div>
+
+          <div className="relative w-[220px] h-[280px] rounded-2xl bg-neutral-950 border border-neutral-200 overflow-hidden flex items-center justify-center group/gal">
+            <div className="absolute inset-0 bg-radial-gradient(circle, rgba(0,128,255,0.15) 0%, transparent 60%)" />
+            <span className="font-pacifico text-xl neon-text-blue transition-transform group-hover/gal:scale-105">Good Vibes Only</span>
+            <div className="absolute bottom-3 left-3 right-3 text-[10px] text-neutral-400 font-bold bg-black/60 py-1 px-2 rounded-md text-center">
+              Home Office Studio
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 9. HAPPY CUSTOMER STATS & RATING STRIP */}
+      <section className="w-full bg-linear-to-r from-neon-pink to-neon-blue text-white py-12 text-center">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="space-y-1">
+            <h3 className="text-3xl sm:text-5xl font-black">55,000+</h3>
+            <p className="text-xs uppercase tracking-wider font-bold text-white/80">Happy Customers Worldwide</p>
+          </div>
+          <div className="space-y-1 border-y md:border-y-0 md:border-x border-white/20 py-6 md:py-0">
+            <h3 className="text-3xl sm:text-5xl font-black">4.9/5</h3>
+            <div className="flex text-amber-400 justify-center gap-1 my-1">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="h-4 w-4 fill-amber-400" />
+              ))}
+            </div>
+            <p className="text-xs uppercase tracking-wider font-bold text-white/80">Customer Satisfaction Score</p>
+          </div>
+          <div className="space-y-1">
+            <h3 className="text-3xl sm:text-5xl font-black">100%</h3>
+            <p className="text-xs uppercase tracking-wider font-bold text-white/80">Insured Delivery Guarantee</p>
+          </div>
+        </div>
+      </section>
+
+      {/* 10. TESTIMONIALS SLIDER */}
+      <section className="max-w-7xl mx-auto px-6 py-16">
+        <div className="text-center max-w-xl mx-auto mb-12">
+          <h2 className="text-2xl sm:text-3xl font-black text-neutral-900">What Our Clients Say</h2>
+          <p className="text-xs text-neutral-500 font-medium mt-1">Verified reviews detailing our glow, shipping, and support quality</p>
+        </div>
+
+        {/* Detailed feedback cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {testimonials.slice(0, 3).map((review, idx) => (
+            <div key={review.id} className="p-6 rounded-2xl border border-neutral-200 bg-neutral-50/50 space-y-4 relative flex flex-col justify-between">
               <div className="space-y-3">
-                <div className="flex gap-0.5 text-amber-500">
-                  {Array.from({ length: test.rating }).map((_, i) => (
-                    <Star key={i} className="h-3.5 w-3.5 fill-amber-500" />
+                <div className="flex text-amber-400">
+                  {[...Array(review.rating)].map((_, i) => (
+                    <Star key={i} className="h-3.5 w-3.5 fill-amber-400" />
                   ))}
                 </div>
-                <p className="text-[11px] text-neutral-400 leading-relaxed font-medium">
-                  &ldquo;{test.text}&rdquo;
+                
+                <Quote className="h-8 w-8 text-neutral-200 absolute right-6 top-6 -z-10" />
+                
+                <p className="text-xs text-neutral-600 leading-relaxed font-medium">
+                  &quot;{review.text}&quot;
                 </p>
               </div>
 
-              <div className="flex items-center gap-3.5 pt-3 border-t border-white/5">
-                <div className="w-8 h-8 rounded-full bg-linear-to-r from-neon-pink/30 to-neon-blue/30 flex items-center justify-center text-xs font-bold text-white border border-white/10 select-none">
-                  {test.avatar}
+              <div className="flex items-center gap-3 border-t border-neutral-200/60 pt-4 mt-2">
+                <div className="w-10 h-10 rounded-full bg-linear-to-r from-neon-pink/20 to-neon-blue/20 flex items-center justify-center text-xs font-bold text-neutral-700">
+                  {review.avatar}
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-white">{test.name}</h4>
-                  <span className="text-[10px] text-neutral-500 font-semibold block">{test.role}</span>
+                  <h5 className="text-xs font-bold text-neutral-800 flex items-center gap-1">
+                    {review.name}
+                    <span className="text-[9px] px-1.5 py-0.2 bg-green-100 text-green-700 rounded-full scale-90">Verified</span>
+                  </h5>
+                  <p className="text-[10px] text-neutral-400 mt-0.5">{review.role}</p>
                 </div>
               </div>
             </div>
@@ -551,97 +649,190 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 7. LATEST BLOG ARTICLES */}
-      <section className="max-w-7xl mx-auto px-6 py-12 space-y-8">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="text-center sm:text-left">
-            <h2 className="text-2xl sm:text-4xl font-black">Latest Signage Insights</h2>
-            <p className="text-xs text-neutral-500 mt-2 font-medium">Read guides on business branding, wedding design tips, and neon trends.</p>
+      {/* 11. RECENT BLOG FEED GRID */}
+      <section className="max-w-7xl mx-auto px-6 py-16 border-t border-neutral-100">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 mb-10">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-black text-neutral-900">Latest From VJneon Blog</h2>
+            <p className="text-xs text-neutral-500 font-medium mt-1">Illumination design advice, wedding inspirations, and retail guides</p>
           </div>
-          <Link href="/blog" className="text-xs font-bold text-neon-pink hover:underline flex items-center gap-1 cursor-pointer">
-            Browse All Articles <ChevronDown className="h-4 w-4 -rotate-90" />
+          <Link href="/blog" className="px-5 py-2 bg-neutral-900 hover:bg-neutral-800 text-xs font-bold text-white rounded-full transition-colors flex items-center gap-1 cursor-pointer">
+            Browse All Articles <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {blogs.slice(0, 3).map((post) => (
-            <Link 
-              key={post.id}
-              href={`/blog/${post.slug}`}
-              className="group rounded-2xl bg-[#09090b] border border-white/5 overflow-hidden hover:border-white/10 hover:scale-[1.01] transition-all flex flex-col justify-between aspect-[4/5] cursor-pointer"
-            >
-              {/* Cover card representation */}
-              <div className="w-full aspect-[16/10] bg-neutral-900 relative flex items-center justify-center overflow-hidden border-b border-white/5">
-                <div className="absolute inset-0 bg-radial-gradient from-white/2 to-transparent pointer-events-none" />
-                <Bookmark className="h-10 w-10 text-neutral-700 group-hover:scale-110 transition-transform" />
+            <article key={post.slug} className="group flex flex-col justify-between space-y-4 rounded-2xl border border-neutral-200 p-4 hover:shadow-md transition-shadow">
+              <div className="space-y-3">
+                {/* Mock thumbnail artwork */}
+                <div className="aspect-video w-full rounded-xl bg-neutral-900 relative overflow-hidden flex items-center justify-center">
+                  <div className="absolute inset-0 bg-radial-gradient(circle, rgba(0,128,255,0.1) 0%, transparent 60%)" />
+                  <span className="font-pacifico text-lg neon-text-blue transition-transform group-hover:scale-105">{post.title.split(" ")[0]}</span>
+                </div>
                 
-                {/* Floating category flag */}
-                <span className="absolute top-4 left-4 px-2 py-0.5 rounded bg-black/60 border border-white/5 text-[9px] font-bold text-neutral-400 uppercase tracking-wider">
-                  {post.category}
-                </span>
-              </div>
-
-              <div className="p-5 flex-1 flex flex-col justify-between gap-3">
-                <div className="space-y-2">
-                  <span className="text-[10px] text-neutral-500 font-semibold">{post.date} • {post.readingTime}</span>
-                  <h3 className="text-sm font-bold text-white group-hover:text-neon-pink transition-colors line-clamp-2 leading-snug">
-                    {post.title}
-                  </h3>
-                  <p className="text-[10px] text-neutral-400 leading-relaxed font-semibold line-clamp-3">
-                    {post.excerpt}
-                  </p>
+                <div className="flex items-center gap-4 text-[10px] font-bold text-neutral-400 uppercase">
+                  <span className="flex items-center gap-1"><Calendar className="h-3.5 w-3.5" /> {post.date}</span>
+                  <span className="flex items-center gap-1"><Clock className="h-3.5 w-3.5" /> {post.readingTime}</span>
                 </div>
 
-                <span className="text-[10px] font-bold text-neon-pink group-hover:underline flex items-center gap-1 mt-2">
-                  Read Article →
-                </span>
+                <h4 className="text-sm font-bold text-neutral-800 group-hover:text-neon-pink transition-colors">
+                  {post.title}
+                </h4>
+                
+                <p className="text-xs text-neutral-500 line-clamp-2 leading-relaxed">
+                  {post.excerpt}
+                </p>
               </div>
-            </Link>
+
+              <Link href={`/blog/${post.slug}`} className="text-xs font-bold text-neon-blue group-hover:underline flex items-center gap-1 pt-2">
+                Read Full Article <ArrowUpRight className="h-3.5 w-3.5" />
+              </Link>
+            </article>
           ))}
         </div>
       </section>
 
-      {/* 8. FAQ ACCORDIONS */}
-      <section className="max-w-4xl mx-auto px-6 py-12 space-y-8">
-        <div className="text-center space-y-3">
-          <h2 className="text-2xl sm:text-4xl font-black">General Questions</h2>
-          <p className="text-xs text-neutral-500 font-medium">Find quick answers to common queries about LED signs.</p>
+      {/* 12. FAQ ACCORDION PANEL */}
+      <section className="max-w-3xl mx-auto px-6 py-16 border-t border-neutral-100">
+        <div className="text-center mb-10">
+          <h2 className="text-2xl sm:text-3xl font-black text-neutral-900">Frequently Asked Questions</h2>
+          <p className="text-xs text-neutral-500 font-medium mt-1">Quick answers to manufacturing time, dimensions, and wall mounting</p>
         </div>
 
-        <div className="space-y-3.5">
+        <div className="space-y-4">
           {faqs.map((faq) => {
             const isOpen = activeFaq === faq.id;
             return (
               <div 
-                key={faq.id}
-                className="rounded-2xl border border-white/5 bg-[#09090b] overflow-hidden transition-colors hover:border-white/10"
+                key={faq.id} 
+                className="rounded-2xl border border-neutral-200 overflow-hidden transition-all duration-200"
               >
                 <button
                   onClick={() => setActiveFaq(isOpen ? null : faq.id)}
-                  className="w-full flex items-center justify-between p-5 text-left text-sm font-bold text-white cursor-pointer select-none"
+                  className="w-full text-left px-6 py-4 flex items-center justify-between font-bold text-xs sm:text-sm text-neutral-800 hover:bg-neutral-50 transition-colors cursor-pointer"
                 >
-                  <span className="pr-4">{faq.question}</span>
-                  <ChevronDown className={`h-4.5 w-4.5 text-neutral-500 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+                  <span>{faq.question}</span>
+                  {isOpen ? <ChevronUp className="h-4.5 w-4.5 text-neutral-500" /> : <ChevronDown className="h-4.5 w-4.5 text-neutral-500" />}
                 </button>
-                
+
                 <AnimatePresence initial={false}>
                   {isOpen && (
                     <motion.div
-                      initial={{ height: 0 }}
-                      animate={{ height: "auto" }}
-                      exit={{ height: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="overflow-hidden border-t border-white/5 bg-black/40"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="border-t border-neutral-100 bg-neutral-50/50"
                     >
-                      <p className="p-5 text-xs text-neutral-400 leading-relaxed font-semibold">
+                      <div className="px-6 py-4 text-xs text-neutral-500 leading-relaxed font-medium">
                         {faq.answer}
-                      </p>
+                      </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
               </div>
             );
           })}
+        </div>
+      </section>
+
+      {/* 13. ABOUT VJNEON SUMMARY SEGMENT */}
+      <section className="w-full py-16 bg-neutral-50/50 border-t border-neutral-100">
+        <div className="max-w-4xl mx-auto px-6 text-center space-y-6">
+          <h3 className="text-lg uppercase tracking-wider font-extrabold text-neutral-400">About VJneon</h3>
+          <h2 className="text-xl sm:text-2xl font-black text-neutral-900">
+            Handcrafting Premium illuminated Art Worldwide
+          </h2>
+          
+          <div className="text-xs text-neutral-600 leading-relaxed max-w-2xl mx-auto space-y-4 font-medium">
+            <p>
+              Founded with the goal of creating safer, cleaner, and energy-efficient alternatives to traditional mercury glass neons, VJneon specializes in state-of-the-art flexible LED signage. We utilize premium low-voltage DC adaptors, high-grade acrylic backplates, and dense 120-LEDs/m flex tubes to provide silent, child-safe, and durable ambient illumination.
+            </p>
+            
+            <AnimatePresence>
+              {isAboutExpanded && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  className="space-y-4 overflow-hidden"
+                >
+                  <p>
+                    Every sign is manufactured by certified solder technicians who inspect each joint, wire alignment, and backing trim under 12-hour burn tests. We cater to major corporate storefronts, wedding planners, residential decorators, and brand agencies globally.
+                  </p>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-neutral-800 font-bold text-center pt-2">
+                    <div className="p-3 bg-white rounded-xl border border-neutral-200">
+                      <div className="text-base text-neon-pink">12,700+</div>
+                      <div className="text-[9px] text-neutral-400 uppercase mt-0.5">Signs Completed</div>
+                    </div>
+                    <div className="p-3 bg-white rounded-xl border border-neutral-200">
+                      <div className="text-base text-neon-blue">21,500+</div>
+                      <div className="text-[9px] text-neutral-400 uppercase mt-0.5">Custom Mockups</div>
+                    </div>
+                    <div className="p-3 bg-white rounded-xl border border-neutral-200">
+                      <div className="text-base text-neutral-800">30+</div>
+                      <div className="text-[9px] text-neutral-400 uppercase mt-0.5">Global Planners</div>
+                    </div>
+                    <div className="p-3 bg-white rounded-xl border border-neutral-200">
+                      <div className="text-base text-green-600">5-Star</div>
+                      <div className="text-[9px] text-neutral-400 uppercase mt-0.5">Average Rating</div>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          <button
+            onClick={() => setIsAboutExpanded(!isAboutExpanded)}
+            className="px-5 py-2.5 rounded-full border border-neutral-300 hover:bg-neutral-100 text-xs font-bold text-neutral-700 transition-colors cursor-pointer flex items-center justify-center gap-1 mx-auto"
+          >
+            <span>{isAboutExpanded ? "Read Less" : "Read More About Us"}</span>
+            <ChevronDown className={`h-4 w-4 transition-transform ${isAboutExpanded ? "rotate-180" : ""}`} />
+          </button>
+        </div>
+      </section>
+
+      {/* 14. JOIN VJNEON CLUB (Newsletter Footer banner) */}
+      <section className="w-full bg-neutral-100 py-16 border-t border-neutral-200">
+        <div className="max-w-xl mx-auto px-6 text-center space-y-6">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-neon-pink/10 border border-neon-pink/20 text-xs font-bold text-neon-pink">
+            <Flame className="h-4 w-4 text-neon-pink animate-pulse" /> 
+            <span>VJneon VIP Club</span>
+          </div>
+          
+          <h2 className="text-xl sm:text-3xl font-black text-neutral-900">
+            Join VJneon Club & Get 10% OFF
+          </h2>
+          
+          <p className="text-xs text-neutral-500 leading-relaxed font-medium">
+            Be the first to hear about flash discounts, seasonal collections, custom font rollouts, and design inspiration guides.
+          </p>
+
+          <form 
+            onSubmit={(e) => {
+              e.preventDefault();
+              canvasConfetti({
+                particleCount: 80,
+                spread: 70
+              });
+              alert("Welcome to VJneon Club! Check your inbox for your 10% coupon code.");
+            }} 
+            className="flex gap-2 max-w-sm mx-auto"
+          >
+            <input 
+              type="email" 
+              placeholder="Enter your email address" 
+              required
+              className="w-full bg-white border border-neutral-200 rounded-xl px-4 py-2.5 text-xs text-neutral-800 placeholder-neutral-400 outline-hidden focus:border-neon-pink transition-colors"
+            />
+            <button 
+              type="submit"
+              className="px-5 bg-neutral-900 hover:bg-neutral-800 rounded-xl text-xs font-bold text-white transition-opacity cursor-pointer flex items-center justify-center"
+            >
+              Join
+            </button>
+          </form>
         </div>
       </section>
 
