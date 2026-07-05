@@ -409,67 +409,67 @@ export default function HomePage() {
       <section className="w-full bg-[#fcfcfc] py-10 border-b border-neutral-100">
         <div className="max-w-7xl mx-auto px-6">
           {/* Section title */}
-          <h3 className="text-center text-xs sm:text-sm font-black text-[#f44b7d] tracking-widest uppercase mb-8">
+          <h3 className="text-center text-[24px] font-black text-[#f44b7d] tracking-widest uppercase mb-8">
             #1 Custom LED Neon Brand | Fast Shipping Worldwide
           </h3>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 items-center justify-center">
             {/* Price Match Guarantee */}
             <div className="flex items-center gap-3 justify-center lg:justify-start">
-              <div className="p-3 rounded-full bg-rose-50 border border-rose-100/50 text-[#f44b7d] flex items-center justify-center w-12 h-12 shrink-0 shadow-xs">
-                <Tags className="h-5.5 w-5.5 text-[#f44b7d]" />
+              <div className="p-3 rounded-full bg-rose-50 border border-rose-100/50 text-[#f44b7d] flex items-center justify-center w-14 h-14 shrink-0 shadow-xs">
+                <Tags className="h-6 w-6 text-[#f44b7d]" />
               </div>
-              <h4 className="text-xs md:text-sm font-extrabold text-neutral-850 leading-tight text-left">
+              <h4 className="text-[18px] font-extrabold text-neutral-850 leading-tight text-left">
                 Price Match<br/>Guarantee
               </h4>
             </div>
 
             {/* UL Listed Sign Makers */}
             <div className="flex items-center gap-3 justify-center lg:justify-start">
-              <div className="p-3 rounded-full bg-rose-50 border border-rose-100/50 text-[#f44b7d] flex items-center justify-center w-12 h-12 shrink-0 shadow-xs">
-                <ShieldCheck className="h-5.5 w-5.5 text-[#f44b7d]" />
+              <div className="p-3 rounded-full bg-rose-50 border border-rose-100/50 text-[#f44b7d] flex items-center justify-center w-14 h-14 shrink-0 shadow-xs">
+                <ShieldCheck className="h-6 w-6 text-[#f44b7d]" />
               </div>
-              <h4 className="text-xs md:text-sm font-extrabold text-neutral-850 leading-tight text-left">
+              <h4 className="text-[18px] font-extrabold text-neutral-850 leading-tight text-left">
                 UL Listed<br/>Sign Makers
               </h4>
             </div>
 
             {/* No Hidden Charges */}
             <div className="flex items-center gap-3 justify-center lg:justify-start">
-              <div className="p-3 rounded-full bg-rose-50 border border-rose-100/50 text-[#f44b7d] flex items-center justify-center w-12 h-12 shrink-0 shadow-xs">
-                <EyeOff className="h-5.5 w-5.5 text-[#f44b7d]" />
+              <div className="p-3 rounded-full bg-rose-50 border border-rose-100/50 text-[#f44b7d] flex items-center justify-center w-14 h-14 shrink-0 shadow-xs">
+                <EyeOff className="h-6 w-6 text-[#f44b7d]" />
               </div>
-              <h4 className="text-xs md:text-sm font-extrabold text-neutral-850 leading-tight text-left">
+              <h4 className="text-[18px] font-extrabold text-neutral-850 leading-tight text-left">
                 No Hidden<br/>Charges
               </h4>
             </div>
 
             {/* BUY Now, PAY Later */}
             <div className="flex items-center gap-3 justify-center lg:justify-start">
-              <div className="p-3 rounded-full bg-rose-50 border border-rose-100/50 text-[#f44b7d] flex items-center justify-center w-12 h-12 shrink-0 shadow-xs">
-                <Wallet className="h-5.5 w-5.5 text-[#f44b7d]" />
+              <div className="p-3 rounded-full bg-rose-50 border border-rose-100/50 text-[#f44b7d] flex items-center justify-center w-14 h-14 shrink-0 shadow-xs">
+                <Wallet className="h-6 w-6 text-[#f44b7d]" />
               </div>
-              <h4 className="text-xs md:text-sm font-extrabold text-neutral-850 leading-tight text-left">
+              <h4 className="text-[18px] font-extrabold text-neutral-850 leading-tight text-left">
                 BUY Now,<br/>PAY Later
               </h4>
             </div>
 
             {/* 3-Year Warranty* */}
             <div className="flex items-center gap-3 justify-center lg:justify-start">
-              <div className="p-3 rounded-full bg-rose-50 border border-rose-100/50 text-[#f44b7d] flex items-center justify-center w-12 h-12 shrink-0 shadow-xs">
-                <Award className="h-5.5 w-5.5 text-[#f44b7d]" />
+              <div className="p-3 rounded-full bg-rose-50 border border-rose-100/50 text-[#f44b7d] flex items-center justify-center w-14 h-14 shrink-0 shadow-xs">
+                <Award className="h-6 w-6 text-[#f44b7d]" />
               </div>
-              <h4 className="text-xs md:text-sm font-extrabold text-neutral-850 leading-tight text-left">
+              <h4 className="text-[18px] font-extrabold text-neutral-850 leading-tight text-left">
                 3-Year<br/>Warranty*
               </h4>
             </div>
 
             {/* Unlimited Revisions */}
             <div className="flex items-center gap-3 justify-center lg:justify-start">
-              <div className="p-3 rounded-full bg-rose-50 border border-rose-100/50 text-[#f44b7d] flex items-center justify-center w-12 h-12 shrink-0 shadow-xs">
-                <RefreshCw className="h-5.5 w-5.5 text-[#f44b7d]" />
+              <div className="p-3 rounded-full bg-rose-50 border border-rose-100/50 text-[#f44b7d] flex items-center justify-center w-14 h-14 shrink-0 shadow-xs">
+                <RefreshCw className="h-6 w-6 text-[#f44b7d]" />
               </div>
-              <h4 className="text-xs md:text-sm font-extrabold text-neutral-850 leading-tight text-left">
+              <h4 className="text-[18px] font-extrabold text-neutral-850 leading-tight text-left">
                 Unlimited<br/>Revisions
               </h4>
             </div>
