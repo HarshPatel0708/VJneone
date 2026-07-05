@@ -413,53 +413,65 @@ export default function HomePage() {
             #1 Custom LED Neon Brand | Fast Shipping Worldwide
           </h3>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 text-center">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 items-center justify-center">
             {/* Price Match Guarantee */}
-            <div className="flex flex-col items-center gap-2">
-              <div className="p-3.5 rounded-full bg-rose-50/70 border border-rose-100/50 text-[#f44b7d] flex items-center justify-center w-12 h-12 shadow-xs">
-                <Tags className="h-5 w-5 text-[#f44b7d]" />
+            <div className="flex items-center gap-3 justify-center lg:justify-start">
+              <div className="p-3 rounded-full bg-rose-50 border border-rose-100/50 text-[#f44b7d] flex items-center justify-center w-12 h-12 shrink-0 shadow-xs">
+                <Tags className="h-5.5 w-5.5 text-[#f44b7d]" />
               </div>
-              <h4 className="text-xs font-bold text-neutral-800 leading-snug">Price Match<br/>Guarantee</h4>
+              <h4 className="text-xs md:text-sm font-extrabold text-neutral-850 leading-tight text-left">
+                Price Match<br/>Guarantee
+              </h4>
             </div>
 
             {/* UL Listed Sign Makers */}
-            <div className="flex flex-col items-center gap-2">
-              <div className="p-3.5 rounded-full bg-rose-50/70 border border-rose-100/50 text-[#f44b7d] flex items-center justify-center w-12 h-12 shadow-xs">
-                <ShieldCheck className="h-5 w-5 text-[#f44b7d]" />
+            <div className="flex items-center gap-3 justify-center lg:justify-start">
+              <div className="p-3 rounded-full bg-rose-50 border border-rose-100/50 text-[#f44b7d] flex items-center justify-center w-12 h-12 shrink-0 shadow-xs">
+                <ShieldCheck className="h-5.5 w-5.5 text-[#f44b7d]" />
               </div>
-              <h4 className="text-xs font-bold text-neutral-800 leading-snug">UL Listed<br/>Sign Makers</h4>
+              <h4 className="text-xs md:text-sm font-extrabold text-neutral-850 leading-tight text-left">
+                UL Listed<br/>Sign Makers
+              </h4>
             </div>
 
             {/* No Hidden Charges */}
-            <div className="flex flex-col items-center gap-2">
-              <div className="p-3.5 rounded-full bg-rose-50/70 border border-rose-100/50 text-[#f44b7d] flex items-center justify-center w-12 h-12 shadow-xs">
-                <EyeOff className="h-5 w-5 text-[#f44b7d]" />
+            <div className="flex items-center gap-3 justify-center lg:justify-start">
+              <div className="p-3 rounded-full bg-rose-50 border border-rose-100/50 text-[#f44b7d] flex items-center justify-center w-12 h-12 shrink-0 shadow-xs">
+                <EyeOff className="h-5.5 w-5.5 text-[#f44b7d]" />
               </div>
-              <h4 className="text-xs font-bold text-neutral-800 leading-snug">No Hidden<br/>Charges</h4>
+              <h4 className="text-xs md:text-sm font-extrabold text-neutral-850 leading-tight text-left">
+                No Hidden<br/>Charges
+              </h4>
             </div>
 
             {/* BUY Now, PAY Later */}
-            <div className="flex flex-col items-center gap-2">
-              <div className="p-3.5 rounded-full bg-rose-50/70 border border-rose-100/50 text-[#f44b7d] flex items-center justify-center w-12 h-12 shadow-xs">
-                <Wallet className="h-5 w-5 text-[#f44b7d]" />
+            <div className="flex items-center gap-3 justify-center lg:justify-start">
+              <div className="p-3 rounded-full bg-rose-50 border border-rose-100/50 text-[#f44b7d] flex items-center justify-center w-12 h-12 shrink-0 shadow-xs">
+                <Wallet className="h-5.5 w-5.5 text-[#f44b7d]" />
               </div>
-              <h4 className="text-xs font-bold text-neutral-800 leading-snug">BUY Now,<br/>PAY Later</h4>
+              <h4 className="text-xs md:text-sm font-extrabold text-neutral-850 leading-tight text-left">
+                BUY Now,<br/>PAY Later
+              </h4>
             </div>
 
             {/* 3-Year Warranty* */}
-            <div className="flex flex-col items-center gap-2">
-              <div className="p-3.5 rounded-full bg-rose-50/70 border border-rose-100/50 text-[#f44b7d] flex items-center justify-center w-12 h-12 shadow-xs">
-                <Award className="h-5 w-5 text-[#f44b7d]" />
+            <div className="flex items-center gap-3 justify-center lg:justify-start">
+              <div className="p-3 rounded-full bg-rose-50 border border-rose-100/50 text-[#f44b7d] flex items-center justify-center w-12 h-12 shrink-0 shadow-xs">
+                <Award className="h-5.5 w-5.5 text-[#f44b7d]" />
               </div>
-              <h4 className="text-xs font-bold text-neutral-800 leading-snug">3-Year<br/>Warranty*</h4>
+              <h4 className="text-xs md:text-sm font-extrabold text-neutral-850 leading-tight text-left">
+                3-Year<br/>Warranty*
+              </h4>
             </div>
 
             {/* Unlimited Revisions */}
-            <div className="flex flex-col items-center gap-2">
-              <div className="p-3.5 rounded-full bg-rose-50/70 border border-rose-100/50 text-[#f44b7d] flex items-center justify-center w-12 h-12 shadow-xs">
-                <RefreshCw className="h-5 w-5 text-[#f44b7d]" />
+            <div className="flex items-center gap-3 justify-center lg:justify-start">
+              <div className="p-3 rounded-full bg-rose-50 border border-rose-100/50 text-[#f44b7d] flex items-center justify-center w-12 h-12 shrink-0 shadow-xs">
+                <RefreshCw className="h-5.5 w-5.5 text-[#f44b7d]" />
               </div>
-              <h4 className="text-xs font-bold text-neutral-800 leading-snug">Unlimited<br/>Revisions</h4>
+              <h4 className="text-xs md:text-sm font-extrabold text-neutral-850 leading-tight text-left">
+                Unlimited<br/>Revisions
+              </h4>
             </div>
           </div>
         </div>
