@@ -52,6 +52,7 @@ export default function HomePage() {
 
   // Promo Slider Carousel state
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [direction, setDirection] = useState(1);
 
   // About expand state
   const [isAboutExpanded, setIsAboutExpanded] = useState(false);
@@ -95,13 +96,44 @@ export default function HomePage() {
     }
   ];
 
+  // Slider navigation helpers
+  const nextSlide = () => {
+    setDirection(1);
+    setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+  };
+
+  const prevSlide = () => {
+    setDirection(-1);
+    setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
+  };
+
+  const goToSlide = (index: number) => {
+    setDirection(index > currentSlide ? 1 : -1);
+    setCurrentSlide(index);
+  };
+
+  const slideVariants = {
+    enter: (dir: number) => ({
+      x: dir * 150,
+      opacity: 0
+    }),
+    center: {
+      x: 0,
+      opacity: 1
+    },
+    exit: (dir: number) => ({
+      x: -dir * 150,
+      opacity: 0
+    })
+  };
+
   // Rotate hero slides
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+      nextSlide();
     }, 6000);
     return () => clearInterval(timer);
-  }, [heroSlides.length]);
+  }, [currentSlide, heroSlides.length]);
 
   // Brand logos for marquee
   const brandLogos = [
@@ -160,9 +192,11 @@ export default function HomePage() {
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSlide}
-            initial={{ opacity: 0, x: 150 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -150 }}
+            custom={direction}
+            variants={slideVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
             transition={{ duration: 0.45, ease: "easeInOut" }}
             className={`absolute inset-0 bg-gradient-to-br ${heroSlides[currentSlide].bgClass} py-12 px-6 flex items-center justify-center`}
           >
@@ -336,7 +370,7 @@ export default function HomePage() {
 
         {/* Carousel Navigation Arrows */}
         <button 
-          onClick={() => setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)}
+          onClick={prevSlide}
           className="absolute left-6 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-white/70 hover:bg-white text-neutral-800 border border-neutral-200/80 shadow-md hover:scale-105 transition-all cursor-pointer hidden md:flex items-center justify-center"
           aria-label="Previous Slide"
         >
@@ -344,7 +378,7 @@ export default function HomePage() {
         </button>
 
         <button 
-          onClick={() => setCurrentSlide((prev) => (prev + 1) % heroSlides.length)}
+          onClick={nextSlide}
           className="absolute right-6 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-white/70 hover:bg-white text-neutral-800 border border-neutral-200/80 shadow-md hover:scale-105 transition-all cursor-pointer hidden md:flex items-center justify-center"
           aria-label="Next Slide"
         >
@@ -356,7 +390,7 @@ export default function HomePage() {
           {heroSlides.map((_, i) => (
             <button
               key={i}
-              onClick={() => setCurrentSlide(i)}
+              onClick={() => goToSlide(i)}
               className={`h-2.5 rounded-full transition-all cursor-pointer ${
                 currentSlide === i ? "w-8 bg-neutral-800" : "w-2.5 bg-neutral-350"
               }`}
