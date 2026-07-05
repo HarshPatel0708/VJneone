@@ -93,10 +93,10 @@ export default function Header() {
 
       {/* Main Navigation Header */}
       <header 
-        className={`fixed top-12 left-0 right-0 z-40 mx-auto w-[92%] max-w-7xl rounded-2xl transition-all duration-300 ${
+        className={`sticky top-4 left-0 right-0 z-40 mx-auto w-[92%] max-w-7xl rounded-2xl transition-all duration-300 ${
           isScrolled 
-            ? "bg-white/95 backdrop-blur-md border border-neutral-200 shadow-md text-neutral-800" 
-            : "bg-white/40 backdrop-blur-xs border border-white/20 text-neutral-800"
+            ? "bg-white border border-neutral-200 shadow-md text-neutral-800" 
+            : "bg-white/95 backdrop-blur-md border border-neutral-200/50 shadow-sm text-neutral-800"
         }`}
       >
         <div className="flex h-16 items-center justify-between px-6 md:px-8">

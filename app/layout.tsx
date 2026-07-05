@@ -94,7 +94,7 @@ export default function RootLayout({
       lang="en"
       className={`${outfit.variable} ${pacifico.variable} ${caveat.variable} ${sacramento.variable} ${yellowtail.variable} ${tiltNeon.variable} ${dosis.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[#030303] text-[#f5f5f7]">
+      <body className="min-h-full flex flex-col bg-white text-neutral-800">
         {/* Organisation JSON-LD Structured Data Schema */}
         <script
           type="application/ld+json"
